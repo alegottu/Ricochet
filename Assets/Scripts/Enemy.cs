@@ -24,9 +24,19 @@ public class Enemy : MonoBehaviour
 
     private void KillBox()
     {
-        if (transform.position.x > bounds.localScale.x / 2 || transform.position.x < -bounds.localScale.x / 2 || transform.position.y > bounds.localScale.y / 2 || transform.position.y < -bounds.localScale.y / 2)
+        if (transform.position.x > bounds.localScale.x / 2 || transform.position.x < -bounds.localScale.x / 2 || transform.position.y > bounds.localScale.y / 2)
         {
             Kill();
+        }
+
+        if (transform.position.y < -bounds.localScale.y / 2)
+        {
+            Kill();
+
+            if (GameManager.Instance.getMode() == GameManager.GameMode.SURVIVAL || GameManager.Instance.getMode() == GameManager.GameMode.HARDCORE)
+            {
+                Player.Instance.lives--;
+            }
         }
     }
 
@@ -38,13 +48,12 @@ public class Enemy : MonoBehaviour
     private void Kill()
     {
         EnemySpawn.Instance.current--;
-        anim.SetBool("kill", true);
+        EnemySpawn.Instance.max = Mathf.Clamp(EnemySpawn.Instance.max + EnemySpawn.Instance.total / 4, 1, EnemySpawn.Instance.ceiling);
 
+        anim.SetBool("kill", true);
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Death"))
         {
             Destroy(gameObject);
-
-            EnemySpawn.Instance.max += (EnemySpawn.Instance.total / (2 * EnemySpawn.Instance.total));
         }
     }
 }

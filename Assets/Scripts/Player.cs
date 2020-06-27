@@ -9,6 +9,8 @@ public class Player : Singleton<Player>
     private Vector3 wallEnd = Vector3.zero;
     [SerializeField] private Material lineMat = null;
     private EdgeCollider2D wall = null;
+    [SerializeField] private int wallMultiplier = 1;
+    [SerializeField] private float maxWallLength = 1; //For hardcore only
 
     private Touch[] touch;
     private bool firstTouch = false;
@@ -18,12 +20,25 @@ public class Player : Singleton<Player>
 
     [SerializeField] private GameObject bullet = null;
     [HideInInspector] public GameObject _bullet;
-    [SerializeField] private float speed = 1;
+    private Collider2D col = null;
+
+    public int lives = 3;
+
+    private void Start()
+    {
+        col = gameObject.GetComponent<Collider2D>();
+    }
 
     private void Update()
     {
         TouchHandler();
         DrawWall();
+
+        if (lives <= 0)
+        {
+            GameManager.Instance.UnloadLevel();
+            GameManager.Instance.LoadLevel("GameOver");
+        }
     }
 
     private void FixedUpdate()
@@ -66,6 +81,16 @@ public class Player : Singleton<Player>
                 wall = wallRender.gameObject.AddComponent<EdgeCollider2D>();
                 wall.points = new Vector2[2] { wallStart, wallEnd };
                 wallRender.SetPosition(1, wallEnd);
+
+                if (GameManager.Instance.getMode() == GameManager.GameMode.ARCADE)
+                {
+                    GameManager.Instance.addScore((int)(-Mathf.Abs(wallEnd.x - wallStart.x) + -Mathf.Abs(wallEnd.y - wallStart.y)) * wallMultiplier);
+                }
+
+                if (GameManager.Instance.getMode() == GameManager.GameMode.HARDCORE && (Mathf.Abs(wallEnd.x - wallStart.x) + Mathf.Abs(wallEnd.y - wallStart.y) > maxWallLength))
+                {
+                    lives--;
+                }
             }
         }
     }
@@ -95,8 +120,12 @@ public class Player : Singleton<Player>
         if (_bullet == null)
         {
             _bullet = Instantiate(bullet, target.transform.position, Quaternion.identity);
-            Rigidbody2D rb = _bullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(new Vector2(Random.Range(-0.5f, 0.5f) * speed, 1 * speed));
+            col.isTrigger = true;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        col.isTrigger = false;
     }
 }

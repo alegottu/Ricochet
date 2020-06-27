@@ -165,7 +165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max: 2
+  ceiling: 9
   current: 0
+  total: 0
   enemy: {fileID: 1491093094360883817, guid: 3ffd11f17a36bab48ad6c880a443e95e, type: 3}
 --- !u!1 &519420028
 GameObject:

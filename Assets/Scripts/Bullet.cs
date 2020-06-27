@@ -9,18 +9,25 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public int bounces = 0;
     private Rigidbody2D rb = null;
 
-    private Vector3 velocity = Vector3.zero;
+    [SerializeField] private float speed = 1;
+    private Vector3 direction = Vector3.zero;
+
+    [SerializeField] private int enemyPoints = 1;
+    private int enemyMultiplier = 0;
+    [SerializeField] private int timeBonusScale = 1;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+
+        direction = new Vector2(Random.Range(-0.5f, 0.5f), 1);
     }
 
     private void FixedUpdate()
     {
         KillBox();
 
-        velocity = rb.velocity;
+        transform.position += (direction * speed);
     }
 
     private void KillBox()
@@ -28,16 +35,28 @@ public class Bullet : MonoBehaviour
         if (transform.position.x > bounds.localScale.x / 2 || transform.position.x < -bounds.localScale.x / 2 || transform.position.y > bounds.localScale.y / 2 || transform.position.y < -bounds.localScale.y / 2)
         {
             bounces = 0;
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+
+            if (GameManager.Instance.getMode() == GameManager.GameMode.HARDCORE)
+            {
+                Player.Instance.lives--;
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float speed = velocity.magnitude;
-        Vector3 direction = Vector3.Reflect(velocity.normalized, collision.contacts[0].normal);
-        rb.velocity = direction * speed;
+        direction = Vector3.Reflect(direction, collision.contacts[0].normal);
 
         bounces++;
+
+        if (collision.gameObject.name.Contains("nemy") && GameManager.Instance.getMode() == GameManager.GameMode.ARCADE)
+        {
+            int timeBonus = (int)(collision.gameObject.transform.position.y - bounds.position.y) * timeBonusScale;
+
+            UIManager.Instance.updateScore(transform.position, enemyPoints * enemyMultiplier * timeBonus);
+            GameManager.Instance.addScore(enemyPoints * enemyMultiplier * timeBonus);
+            enemyMultiplier++;
+        }
     }
 }

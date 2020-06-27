@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawn : Singleton<EnemySpawn>
 {
     [HideInInspector] public int max = 1;
+    public int ceiling = 1;
     [HideInInspector] public int current = 0;
     [HideInInspector] public int total = 0;
 

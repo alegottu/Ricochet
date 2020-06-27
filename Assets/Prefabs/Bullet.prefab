@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds: {fileID: 2701579428708306575, guid: de5bde0df79fa3b40882efa196379737, type: 3}
   bounces: 0
+  speed: 0.05
+  enemyPoints: 100
 --- !u!212 &3485359859397300584
 SpriteRenderer:
   m_ObjectHideFlags: 0
