@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
+    public Camera mainCam = null;
     [HideInInspector] public LineRenderer wallRender = null;
     private Vector3 wallStart = Vector3.zero;
     private Vector3 wallEnd = Vector3.zero;
     [SerializeField] private Material lineMat = null;
     private EdgeCollider2D wall = null;
     [SerializeField] private int wallMultiplier = 1;
-    [SerializeField] private float maxWallLength = 1; //For hardcore only
+    [SerializeField] private float maxWallLength = 1; //For hardcore + arcade only
+    [SerializeField] private int maxWalls = 3; //For build only
+    private List<GameObject> walls = null;
 
     private Touch[] touch;
     private bool firstTouch = false;
@@ -20,13 +23,18 @@ public class Player : Singleton<Player>
 
     [SerializeField] private GameObject bullet = null;
     [HideInInspector] public GameObject _bullet;
-    private Collider2D col = null;
+    //private Collider2D col = null;
 
     public int lives = 3;
 
     private void Start()
     {
-        col = gameObject.GetComponent<Collider2D>();
+        //col = gameObject.GetComponent<Collider2D>();
+
+        maxWalls = GameManager.Instance.getMode() == GameManager.GameMode.BUILD ? maxWalls : 1;
+        walls = new List<GameObject>();
+
+        CameraShake.Instance.SetCamera(mainCam.transform);
     }
 
     private void Update()
@@ -50,20 +58,21 @@ public class Player : Singleton<Player>
     {     
         if (firstTap)
         {
-            if (wallRender != null)
+            if (walls.Count >= maxWalls)
             {
-                Destroy(wallRender.gameObject);
+                Destroy(walls[0]);
+                walls.Remove(walls[0]);
             }
             createLine();
 
-            wallStart = Camera.main.ScreenToWorldPoint(touch[0].position);
+            wallStart = mainCam.ScreenToWorldPoint(touch[0].position);
             wallStart.z = 0;
             wallRender.SetPosition(0, wallStart);
             wallRender.SetPosition(1, wallStart);
         }
         else if (firstHold && wallRender)
         {
-            wallEnd = Camera.main.ScreenToWorldPoint(touch[0].position);
+            wallEnd = mainCam.ScreenToWorldPoint(touch[0].position);
             wallEnd.z = 0;
             wallRender.SetPosition(1, wallEnd);
         }
@@ -71,12 +80,7 @@ public class Player : Singleton<Player>
         {
             if (wallRender)
             {
-                if (wall != null)
-                {
-                    Destroy(wall);
-                }
-
-                wallEnd = Camera.main.ScreenToWorldPoint(touch[0].position);
+                wallEnd = mainCam.ScreenToWorldPoint(touch[0].position);
                 wallEnd.z = 0;
                 wall = wallRender.gameObject.AddComponent<EdgeCollider2D>();
                 wall.points = new Vector2[2] { wallStart, wallEnd };
@@ -84,12 +88,19 @@ public class Player : Singleton<Player>
 
                 if (GameManager.Instance.getMode() == GameManager.GameMode.ARCADE)
                 {
-                    GameManager.Instance.addScore((int)(-Mathf.Abs(wallEnd.x - wallStart.x) + -Mathf.Abs(wallEnd.y - wallStart.y)) * wallMultiplier);
+                    int plus = (int)((-Mathf.Abs(wallEnd.x - wallStart.x) + -Mathf.Abs(wallEnd.y - wallStart.y)) * wallMultiplier + maxWallLength);
+
+                    if (plus < 0)
+                    {
+                        GameManager.Instance.addScore(plus);
+                        UIManager.Instance.updateScore(wallRender.transform.position, plus);
+                    }
                 }
 
                 if (GameManager.Instance.getMode() == GameManager.GameMode.HARDCORE && (Mathf.Abs(wallEnd.x - wallStart.x) + Mathf.Abs(wallEnd.y - wallStart.y) > maxWallLength))
                 {
                     lives--;
+                    UIManager.Instance.anim.SetTrigger("rad");
                 }
             }
         }
@@ -106,7 +117,8 @@ public class Player : Singleton<Player>
 
     private void createLine()
     {
-        wallRender = new GameObject("Wall").AddComponent<LineRenderer>();
+        walls.Add(new GameObject("Wall" + (walls.Count - 1).ToString()));
+        wallRender = walls[walls.Count - 1].AddComponent<LineRenderer>();
         wallRender.material = lineMat;
         wallRender.gameObject.layer = 8;
         wallRender.positionCount = 2;
@@ -117,15 +129,15 @@ public class Player : Singleton<Player>
 
     private void Shoot(GameObject target)
     {
-        if (_bullet == null)
+        if (!_bullet)
         {
             _bullet = Instantiate(bullet, target.transform.position, Quaternion.identity);
-            col.isTrigger = true;
+            //col.isTrigger = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    /*private void OnTriggerExit2D(Collider2D collision)
     {
         col.isTrigger = false;
-    }
+    }*/
 }

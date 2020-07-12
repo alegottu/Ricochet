@@ -11,6 +11,13 @@ public class EnemySpawn : Singleton<EnemySpawn>
 
     [SerializeField] private GameObject enemy = null;
     private GameObject _enemy = null;
+    Vector3 last = Vector3.zero;
+
+    public Vector2 speed = Vector2.one;
+    [SerializeField] private Vector2 maxSpeed = Vector2.one;
+    [SerializeField] private Vector2 speedIncrement = Vector2.zero;
+
+    [SerializeField] private float bounds;
 
     private void FixedUpdate()
     {
@@ -18,7 +25,17 @@ public class EnemySpawn : Singleton<EnemySpawn>
         {
             if (!_enemy)
             {
-                _enemy = Instantiate(enemy, transform.position + new Vector3(Random.Range(-2.5f, 2.5f), 0, 0), Quaternion.identity);
+                speed = new Vector2(Mathf.Clamp(speed.x + speedIncrement.x, 0, maxSpeed.x), Mathf.Clamp(speed.y + speedIncrement.y, 0, maxSpeed.y));
+
+                Vector3 pos = new Vector3(Random.Range(-bounds, bounds), 0, 0);
+                if (pos.x <= last.x + enemy.transform.localScale.x && pos.x >= last.x - enemy.transform.localScale.x)
+                {
+                    float x = Random.Range(0, 1) == 0 ? last.x + enemy.transform.localScale.x * 2 : last.x - enemy.transform.localScale.x * 2;
+                    x = x < -bounds ? -bounds : x > bounds ? bounds : x;
+                    pos = new Vector3(x, 0, 0);
+                }
+                _enemy = Instantiate(enemy, transform.position + pos, Quaternion.identity);
+                last = _enemy.transform.position;
             }
             else
             {

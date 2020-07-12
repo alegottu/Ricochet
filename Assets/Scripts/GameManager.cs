@@ -1,22 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-
-[System.Serializable] public class GameStateEvent : UnityEvent<GameManager.GameState, GameManager.GameState> { }
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject[] Prefabs = null;
     List<GameObject> instantiatedPrefabs;
+    [SerializeField] private GameObject restartContainer = null;
 
     List<AsyncOperation> loadOperations;
-    public GameStateEvent OnGameStateChange;
+    public Event.GameStateEvent OnGameStateChange;
     public string currentLevel;
 
     private int score = 0;
-    private int scoreMultiplier = 1;
+    private int scoreMultiplier = 1; 
 
     public enum GameState
     {
@@ -35,7 +33,8 @@ public class GameManager : Singleton<GameManager>
     {
         SURVIVAL,
         ARCADE,
-        HARDCORE
+        HARDCORE,
+        BUILD
     }
     private GameMode currentMode;
 
@@ -47,12 +46,6 @@ public class GameManager : Singleton<GameManager>
 
         instantiatedPrefabs = new List<GameObject>();
         InstantiatePrefabs();
-    }
-
-    public void StartGame()
-    {
-        LoadLevel(currentLevel);
-        UpdateState(GameState.PREGAME);
     }
 
     private void InstantiatePrefabs()
@@ -73,21 +66,6 @@ public class GameManager : Singleton<GameManager>
     public int getScore()
     {
         return score;
-    }
-
-    private void OnLoadComplete(AsyncOperation ao)
-    {
-        if(loadOperations.Contains(ao))
-        {
-            loadOperations.Remove(ao);
-        }
-
-        if (loadOperations.Count < 1)
-        {
-            UpdateState(GameState.RUNNING);
-        }
-
-        Debug.Log("Load complete.");
     }
 
     public void LoadLevel(string lvl)
@@ -120,9 +98,20 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void OnUnloadComplete(AsyncOperation ao)
+    private void OnLoadComplete(AsyncOperation ao)
     {
-        Debug.Log("Unload complete.");
+        if (loadOperations.Contains(ao))
+        {
+            loadOperations.Remove(ao);
+        }
+
+        if (loadOperations.Count < 1)
+        {
+            UpdateState(GameState.RUNNING);
+        }
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevel));
+        Debug.Log("Load complete.");
     }
 
     public void UnloadLevel(string lvl)
@@ -149,6 +138,11 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private void OnUnloadComplete(AsyncOperation ao)
+    {
+        Debug.Log("Unload complete.");
+    }
+
     private void UpdateState(GameState state)
     {
         GameState previousState = _currentState;
@@ -157,15 +151,16 @@ public class GameManager : Singleton<GameManager>
         switch(currentState)
         {
             case GameState.PREGAME:
+                Time.timeScale = 1;
                 break;
-
             case GameState.RUNNING:
+                Time.timeScale = 1;
                 break;
-
             case GameState.PAUSED:
+                Time.timeScale = 0;
                 break;
-
             default:
+                Time.timeScale = 1;
                 break;
         }
 
@@ -180,6 +175,48 @@ public class GameManager : Singleton<GameManager>
     public GameMode getMode()
     {
         return currentMode;
+    }
+
+    public void StartGame()
+    {
+        LoadLevel(currentLevel);
+        UpdateState(GameState.PREGAME);
+    }
+
+    public void TogglePause()
+    {
+        UpdateState(_currentState == GameState.RUNNING ? GameState.PAUSED : GameState.RUNNING);
+    }
+
+    public void Restart()
+    {
+        TogglePause();
+
+        List<GameObject> rootObjects = new List<GameObject>();
+        SceneManager.GetActiveScene().GetRootGameObjects(rootObjects);
+        foreach(GameObject obj in rootObjects)
+        {
+            Destroy(obj);
+        }
+
+        UIManager.Instance.toggleDummy();
+        UIManager.Instance.anim.SetTrigger("count");
+        StartCoroutine(restartCountdown());
+    }
+
+    private IEnumerator restartCountdown()
+    {
+        yield return new WaitForSeconds(3);
+
+        Instantiate(restartContainer);
+        UIManager.Instance.toggleDummy();
+    }
+
+    public void Quit()
+    {
+        LoadLevel("Menu");
+        UpdateState(GameState.PREGAME);
+        UnloadLevel("Main");
     }
 
     protected override void OnDestroy()

@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private Vector3 direction = Vector3.zero;
 
     [SerializeField] private int enemyPoints = 1;
-    private int enemyMultiplier = 0;
+    private int enemyMultiplier = 1;
     [SerializeField] private int timeBonusScale = 1;
 
     private void Start()
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour
             if (GameManager.Instance.getMode() == GameManager.GameMode.HARDCORE)
             {
                 Player.Instance.lives--;
+                UIManager.Instance.anim.SetTrigger("ammo");
             }
         }
     }
@@ -52,7 +53,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.name.Contains("nemy") && GameManager.Instance.getMode() == GameManager.GameMode.ARCADE)
         {
-            int timeBonus = (int)(collision.gameObject.transform.position.y - bounds.position.y) * timeBonusScale;
+            int timeBonus = collision.gameObject.transform.position.y - bounds.position.y > 0 ? (int)(collision.gameObject.transform.position.y - bounds.position.y) * timeBonusScale : 1;
 
             UIManager.Instance.updateScore(transform.position, enemyPoints * enemyMultiplier * timeBonus);
             GameManager.Instance.addScore(enemyPoints * enemyMultiplier * timeBonus);

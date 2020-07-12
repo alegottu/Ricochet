@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640454513}
   - component: {fileID: 640454512}
+  - component: {fileID: 640454514}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -152,6 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefabs:
   - {fileID: 8635572954432440451, guid: 5873bcc0e3433b541a6b161453d61528, type: 3}
+  restartContainer: {fileID: 8367805870849786427, guid: 07f0d08a470808242a039c991ebabde7,
+    type: 3}
   OnGameStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -164,12 +167,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640454511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7798402, y: 1.5615777, z: -6.8085938}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &640454514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640454511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91625399f038e254ca8a79b2029e660e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDuration: 5
+  magnitude: 0.1
 --- !u!1 &1466824446
 GameObject:
   m_ObjectHideFlags: 0
