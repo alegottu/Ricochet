@@ -17,9 +17,9 @@ public class EnemySpawn : Singleton<EnemySpawn>
     [SerializeField] private Vector2 maxSpeed = Vector2.one;
     [SerializeField] private Vector2 speedIncrement = Vector2.zero;
 
-    [SerializeField] private float bounds;
+    [SerializeField] private float bounds = 1f;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (current < max)
         {
@@ -36,13 +36,14 @@ public class EnemySpawn : Singleton<EnemySpawn>
                 }
                 _enemy = Instantiate(enemy, transform.position + pos, Quaternion.identity);
                 last = _enemy.transform.position;
+
+                current++;
+                total++;
             }
             else
             {
                 _enemy = null;
             }
-            current++;
-            total++;
         }
     }
 }

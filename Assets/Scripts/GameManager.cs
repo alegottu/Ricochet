@@ -20,7 +20,8 @@ public class GameManager : Singleton<GameManager>
     {
         PREGAME,
         RUNNING,
-        PAUSED
+        PAUSED,
+        POSTGAME
     }
     private GameState _currentState;
     public GameState currentState
@@ -110,6 +111,8 @@ public class GameManager : Singleton<GameManager>
             UpdateState(GameState.RUNNING);
         }
 
+        if (UIManager.Instance.gameOver.activeSelf) { UIManager.Instance.gameOver.SetActive(false); }
+
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevel));
         Debug.Log("Load complete.");
     }
@@ -143,7 +146,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Unload complete.");
     }
 
-    private void UpdateState(GameState state)
+    public void UpdateState(GameState state)
     {
         GameState previousState = _currentState;
         _currentState = state;
@@ -190,7 +193,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Restart()
     {
-        TogglePause();
+        if (_currentState == GameState.PAUSED) { TogglePause(); }
 
         List<GameObject> rootObjects = new List<GameObject>();
         SceneManager.GetActiveScene().GetRootGameObjects(rootObjects);
@@ -199,6 +202,7 @@ public class GameManager : Singleton<GameManager>
             Destroy(obj);
         }
 
+        UIManager.Instance.time = 0;
         UIManager.Instance.toggleDummy();
         UIManager.Instance.anim.SetTrigger("count");
         StartCoroutine(restartCountdown());

@@ -127,9 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1245329ba3b19469628419635b7e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 0.01, y: 0.01}
   bounds: {fileID: 2701579428708306575, guid: de5bde0df79fa3b40882efa196379737, type: 3}
   anim: {fileID: 4225442351036397354}
+  speedFluctation: 2
+  increment: 4
 --- !u!61 &6404648494901123766
 BoxCollider2D:
   m_ObjectHideFlags: 0

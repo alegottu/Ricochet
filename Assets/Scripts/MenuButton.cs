@@ -23,4 +23,15 @@ public class MenuButton : MonoBehaviour
     {
         GameManager.Instance.Quit();
     }
+
+    public void menuInfo()
+    {
+        UIManager.Instance.displayInfo(this.gameObject);
+    }
+
+    public void SubmitScore()
+    {
+        GooglePlayController.Authenticate();
+        GooglePlayController.UploadScore(GameManager.Instance.getMode() == GameManager.GameMode.ARCADE ? GameManager.Instance.getScore() : UIManager.Instance.time, GameManager.Instance.getMode());
+    }
 }

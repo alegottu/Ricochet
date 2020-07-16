@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 
     private Vector2 speed;
     [SerializeField] private float speedFluctation = 2;
+    [SerializeField] private int increment = 1;
 
     private bool damage = false;
 
@@ -54,15 +55,15 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < -bounds.localScale.y / 2)
         {
+            if (Player.Instance.lives == 1 + 1) // lives have not been taken away yet, but position needs to be detected
+            {
+                UIManager.Instance.anim.SetTrigger("damage");
+            }
+
             anim.SetTrigger("kill");
             damage = true;
 
             CameraShake.Instance.Shake();
-
-            if (Player.Instance.lives == 1)
-            {
-                UIManager.Instance.anim.SetTrigger("damage");
-            }
         }
     }
 
@@ -74,7 +75,7 @@ public class Enemy : MonoBehaviour
     private void OnDeathComplete()
     {
         EnemySpawn.Instance.current--;
-        EnemySpawn.Instance.max = Mathf.Clamp(EnemySpawn.Instance.max + EnemySpawn.Instance.total / 4, 1, EnemySpawn.Instance.ceiling);
+        EnemySpawn.Instance.max = Mathf.Clamp(EnemySpawn.Instance.total % increment == 0 ? EnemySpawn.Instance.max + 1 : EnemySpawn.Instance.max, 0, EnemySpawn.Instance.ceiling);
 
         if (damage)
         {

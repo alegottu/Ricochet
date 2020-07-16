@@ -1,0 +1,9 @@
+lastUpgrade=01009
+proj.pluginVersion=0.10.09
+proj.AppId=360673204542
+and.BundleId=com.GottusoGames.Ricochet
+proj.classDir=GooglePlayGames
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e360673204542%3c%2fstring%3e%0d%0a++%3c%21--+package_name+--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.GottusoGames.Ricochet%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+Survival+--%3e%0d%0a++%3cstring+name%3d%22leaderboard_survival%22+translatable%3d%22false%22%3eCgkIvrKxzr8KEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+Arcade+--%3e%0d%0a++%3cstring+name%3d%22leaderboard_arcade%22+translatable%3d%22false%22%3eCgkIvrKxzr8KEAIQAA%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+Hardcore+--%3e%0d%0a++%3cstring+name%3d%22leaderboard_hardcore%22+translatable%3d%22false%22%3eCgkIvrKxzr8KEAIQBg%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+Build+--%3e%0d%0a++%3cstring+name%3d%22leaderboard_build%22+translatable%3d%22false%22%3eCgkIvrKxzr8KEAIQBw%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d
+and.ClientId=360673204542-td3cjreg494up5b5n56lncohmdkmmamb.apps.googleusercontent.com
+android.SetupDone=true
