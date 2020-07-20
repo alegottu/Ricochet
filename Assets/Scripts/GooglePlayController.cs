@@ -12,7 +12,9 @@ public class GooglePlayController : Singleton<GooglePlayController>
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
         PlayGamesPlatform.InitializeInstance(config);
+        PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
+        PlayGamesPlatform.Instance.SetDefaultLeaderboardForUI(GPGSIds.leaderboard_survival);
     }
 
     public static void UploadScore(int score, GameManager.GameMode mode)
@@ -21,6 +23,7 @@ public class GooglePlayController : Singleton<GooglePlayController>
         Social.ReportScore(score, ID, (bool success) =>
         {
             Debug.Log(success ? "Reported score successfully" : "Failed to report score");
+            if (success) { ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(ID); }
         });
     }
 
@@ -30,6 +33,7 @@ public class GooglePlayController : Singleton<GooglePlayController>
         Social.ReportScore((long)time, ID, (bool success) =>
         {
             Debug.Log(success ? "Reported score successfully" : "Failed to report score");
+            if (success) { ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(ID); }
         });
     }
 
@@ -40,6 +44,19 @@ public class GooglePlayController : Singleton<GooglePlayController>
             Social.localUser.Authenticate((bool success) =>
             {
                 Debug.Log(success ? "User authenticated" : "User failed to authenticate");
+                if (success) { ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(); }
+            });
+        }
+    }
+
+    public static void Test()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool success) =>
+            {
+                Debug.Log(success ? "User authenticated" : "User failed to authenticate");
+                if (success) { PlayGamesPlatform.Instance.ShowLeaderboardUI(); }
             });
         }
     }

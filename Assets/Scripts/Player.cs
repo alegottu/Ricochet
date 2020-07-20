@@ -24,14 +24,11 @@ public class Player : Singleton<Player>
     [SerializeField] private GameObject bullet = null;
     [HideInInspector] public GameObject _bullet;
     private bool allow = true;
-    //private Collider2D col = null;
 
     public int lives = 3;
 
     private void Start()
     {
-        //col = gameObject.GetComponent<Collider2D>();
-
         maxWalls = GameManager.Instance.getMode() == GameManager.GameMode.BUILD ? maxWalls : 1;
         walls = new List<GameObject>();
 

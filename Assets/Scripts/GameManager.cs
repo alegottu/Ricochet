@@ -202,6 +202,7 @@ public class GameManager : Singleton<GameManager>
             Destroy(obj);
         }
 
+        score = 0;
         UIManager.Instance.time = 0;
         UIManager.Instance.toggleDummy();
         UIManager.Instance.anim.SetTrigger("count");
