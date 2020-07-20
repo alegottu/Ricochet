@@ -34,4 +34,9 @@ public class MenuButton : MonoBehaviour
         GooglePlayController.Authenticate();
         GooglePlayController.UploadScore(GameManager.Instance.getMode() == GameManager.GameMode.ARCADE ? GameManager.Instance.getScore() : UIManager.Instance.time, GameManager.Instance.getMode());
     }
+
+    public void Test()
+    {
+        GooglePlayController.Test();
+    }
 }

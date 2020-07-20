@@ -9,7 +9,8 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public int bounces = 0;
     private Rigidbody2D rb = null;
 
-    [SerializeField] private float speed = 1;
+    [SerializeField] private float speedFactor = 1;
+    private float speed = 1;
     private Vector3 direction = Vector3.zero;
 
     [SerializeField] private int enemyPoints = 1;
@@ -21,6 +22,7 @@ public class Bullet : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
 
         direction = new Vector2(Random.Range(-0.5f, 0.5f), 1);
+        speed = (EnemySpawn.Instance.speed.x + EnemySpawn.Instance.speed.y) * speedFactor;
     }
 
     private void FixedUpdate()

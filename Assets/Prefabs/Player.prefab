@@ -47,7 +47,7 @@ MonoBehaviour:
   wallRender: {fileID: 0}
   lineMat: {fileID: 2100000, guid: 555a52a1a2fa4ce479fdeb5e31dba449, type: 2}
   wallMultiplier: 10
-  maxWallLength: 1
+  maxWallLength: 0.5
   maxWalls: 3
   bullet: {fileID: 3609910516732862608, guid: 0e93920ee62c65745a5fc5ec5d65f994, type: 3}
   _bullet: {fileID: 0}
