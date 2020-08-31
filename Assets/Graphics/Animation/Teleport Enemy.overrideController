@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Teleport Enemy
+  m_Controller: {fileID: 9100000, guid: 428803cdad7339743ad8b45ef4676fdc, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 79bdd7dd69f85ee42a545341df579799, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 79bdd7dd69f85ee42a545341df579799, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c58e0b502f3409d46b14d736218d6638, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 28dc82f686e54af4bb71581b911fa7cb, type: 2}

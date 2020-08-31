@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private Transform bounds = null;
+    private Vector2 bounds = Vector2.one;
+    [SerializeField] private Player player = null;
 
     [HideInInspector] public int bounces = 0;
-    private Rigidbody2D rb = null;
-
-    [SerializeField] private float speedFactor = 1;
     private float speed = 1;
     private Vector3 direction = Vector3.zero;
 
@@ -19,10 +15,8 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-
+        bounds = GameManager.Instance.bounds.bounds.size;
         direction = new Vector2(Random.Range(-0.5f, 0.5f), 1);
-        speed = (EnemySpawn.Instance.speed.x + EnemySpawn.Instance.speed.y) * speedFactor;
     }
 
     private void FixedUpdate()
@@ -34,20 +28,20 @@ public class Bullet : MonoBehaviour
 
     private void KillBox()
     {
-        if (transform.position.x > bounds.localScale.x / 2 || transform.position.x < -bounds.localScale.x / 2 || transform.position.y > bounds.localScale.y / 2 || transform.position.y < -bounds.localScale.y / 2)
+        if (transform.position.x > bounds.x / 2 || transform.position.x < -bounds.x / 2 || transform.position.y > bounds.y / 2 || transform.position.y < -bounds.y / 2)
         {
             bounces = 0;
             Destroy(gameObject);
 
             if (GameManager.Instance.getMode() == GameManager.GameMode.HARDCORE)
             {
-                Player.Instance.lives--;
+                player.lives--;
                 UIManager.Instance.anim.SetTrigger("ammo");
             }
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         direction = Vector3.Reflect(direction, collision.contacts[0].normal);
 
@@ -55,11 +49,16 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.name.Contains("nemy") && GameManager.Instance.getMode() == GameManager.GameMode.ARCADE)
         {
-            int timeBonus = collision.gameObject.transform.position.y - bounds.position.y > 0 ? (int)(collision.gameObject.transform.position.y - bounds.position.y) * timeBonusScale : 1;
+            int timeBonus = collision.gameObject.transform.position.y > 0 ? (int)(collision.gameObject.transform.position.y) * timeBonusScale : 1; // if center of map or desired measuring point is at zero
 
             UIManager.Instance.updateScore(transform.position, enemyPoints * enemyMultiplier * timeBonus);
             GameManager.Instance.addScore(enemyPoints * enemyMultiplier * timeBonus);
             enemyMultiplier++;
         }
+    }
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
     }
 }

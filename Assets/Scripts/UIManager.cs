@@ -1,18 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private GameObject dummyCamera = null;
-
+    public Camera mainCam = null;
     [SerializeField] private GameObject main = null;
     [SerializeField] private GameObject menu = null;
     [SerializeField] private GameObject pause = null;
-    [HideInInspector] public GameObject gameOver = null;
+    [SerializeField] private GameObject gameOver = null;
 
     [SerializeField] private GameObject scoreText = null;
     private TextMeshProUGUI _scoreText = null;
@@ -21,7 +18,7 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField] private TextMeshProUGUI scoreboard = null;
     [SerializeField] private TextMeshProUGUI timer = null;
-    public float time = 0;
+    [HideInInspector] public float time = 0;
     private bool startTime = false;
 
     public Animator anim = null;
@@ -30,8 +27,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject countdown = null;
 
     [SerializeField] private TextMeshProUGUI info = null;
-    [SerializeField] private GameObject infoButtons = null;
-    [SerializeField] private GameObject infoBG = null;
+    [SerializeField] private Button[] infoButtons = null;
+    [SerializeField] private CanvasGroup infoBG = null;
     [SerializeField] private float textSpeed = 1;
     private bool leaveInfo;
 
@@ -50,21 +47,6 @@ public class UIManager : Singleton<UIManager>
             return;
         }
 
-        switch (GameManager.Instance.currentLevel)
-        {
-            case "Main":
-                main.SetActive(true);
-                gameOver.SetActive(false);
-
-                scoreboard.gameObject.SetActive(GameManager.Instance.getMode() == GameManager.GameMode.ARCADE);
-                timer.gameObject.SetActive(GameManager.Instance.getMode() != GameManager.GameMode.ARCADE);
-                break;
-            case "Menu":
-                menu.SetActive(true);
-                main.SetActive(false);
-                break;
-        }
-
         if (newScore)
         {
             _scoreText.alpha -= exit;
@@ -75,40 +57,20 @@ public class UIManager : Singleton<UIManager>
             scoreboard.text = GameManager.Instance.getScore().ToString();
         }
 
-        infoButtons.SetActive(!infoBG.activeSelf);
-
-        time = startTime ? time + Time.deltaTime : time;
-        timer.text = time.ToString();
-
-        leaveInfo = (Input.touchCount > 0 || Input.GetButtonDown("Fire1")) ? true : leaveInfo;
-    }
-
-    public void playMode(GameObject button)
-    {
-        switch (button.name)
+        foreach (Button button in infoButtons)
         {
-            case "Survival":
-                GameManager.Instance.setMode(GameManager.GameMode.SURVIVAL);
-                break;
-            case "Arcade":
-                GameManager.Instance.setMode(GameManager.GameMode.ARCADE);
-                break;
-            case "Hardcore":
-                GameManager.Instance.setMode(GameManager.GameMode.HARDCORE);
-                break;
-            case "Build":
-                GameManager.Instance.setMode(GameManager.GameMode.BUILD);
-                break;
-            default:
-                GameManager.Instance.setMode(GameManager.GameMode.SURVIVAL);
-                break;
+            button.interactable = infoBG.alpha > 0 ? false : true;
         }
 
-        menuFadeOut();
+        time = startTime ? time + Time.deltaTime : time;
+        timer.text = startTime ? time.ToString() : string.Empty;
+
+        leaveInfo = (Input.touchCount > 1 || Input.GetButtonDown("Fire1")) ? true : leaveInfo;
     }
 
-    private void menuFadeOut()
+    public void playMode(IHasInfo button)
     {
+        button.getMode();
         anim.SetTrigger("menuFadeOut");
     }
 
@@ -118,8 +80,6 @@ public class UIManager : Singleton<UIManager>
         startTime = true;
 
         OnMenuFadeOut.Invoke(true);
-
-        anim.ResetTrigger("menuFadeOut");
         menu.SetActive(false);
     }
 
@@ -133,9 +93,27 @@ public class UIManager : Singleton<UIManager>
 
     private void GameStateEventHandler(GameManager.GameState previous, GameManager.GameState current)
     {
-        if (previous == GameManager.GameState.RUNNING && current == GameManager.GameState.RUNNING)
+        if (current == GameManager.GameState.RUNNING)
         {
-            GameManager.Instance.UnloadLevel("Menu");
+            if (previous != GameManager.GameState.PREGAME)
+            {
+                menu.SetActive(GameManager.Instance.currentLevel.Equals("Menu"));
+                gameOver.SetActive(false);
+            }
+
+            if (previous == GameManager.GameState.RUNNING)
+            {
+                GameManager.Instance.UnloadLevel("Menu");
+
+                main.SetActive(true);
+                scoreboard.gameObject.SetActive(GameManager.Instance.getMode() == GameManager.GameMode.ARCADE);
+                timer.gameObject.SetActive(GameManager.Instance.getMode() != GameManager.GameMode.ARCADE);
+            }
+
+            if (previous == GameManager.GameState.PAUSED)
+            {
+                GameManager.Instance.TogglePlayObjects();
+            }
         }
 
         pause.SetActive(current == GameManager.GameState.PAUSED);
@@ -149,7 +127,7 @@ public class UIManager : Singleton<UIManager>
         }
 
         newScore = Instantiate(scoreText, main.transform);
-        newScore.transform.position = Player.Instance.mainCam.WorldToScreenPoint(pos);
+        newScore.transform.position = mainCam.WorldToScreenPoint(pos);
         _scoreText = newScore.GetComponentInChildren<TextMeshProUGUI>();
         string oper = value < 0 ? "" : "+";
         _scoreText.text = oper + value;
@@ -162,17 +140,17 @@ public class UIManager : Singleton<UIManager>
         if (count == 3)
         {
             countdown.SetActive(true);
+
+            time = 0;
+            startTime = false;
         }
 
         if (count == 0)
         {
             countdown.SetActive(false);
-        }
-    }
 
-    public void toggleDummy()
-    {
-        dummyCamera.SetActive(!dummyCamera.activeSelf);
+            startTime = true;
+        }
     }
 
     public void GameOver()
@@ -182,26 +160,18 @@ public class UIManager : Singleton<UIManager>
         gameOver.SetActive(true);
     }
 
-    public void displayInfo(GameObject button)
+    public void displayInfo(string text)
     {
-        switch (button.name)
-        {
-            case "Survival":
-                info.text = "Survival: Able to take 3 hits to the hull. No modifications.";
-                break;
-            case "Arcade":                
-                info.text = "Arcade: Performance is calculated by how quickly you terminate targets and by how little ammmunition is used. Performance can be penalized by the overuse of the reflection system.";
-                break;
-            case "Hardcore":               
-                info.text = "Hardcore: Penalties are also caused by the waste of ammunition and radiation from extensive use of the reflection system.";
-                break;
-            case "Build":               
-                info.text = "Build: Provides that the reflection system is now able to maintain up to three structures at a time.";
-                break;
-        }
+        info.maxVisibleCharacters = 0;
+
+        info.text = text;
 
         leaveInfo = false;
         anim.SetBool("info", true);
+    }
+
+    private void startInfo()
+    {
         StartCoroutine(revealInfo());
     }
 
@@ -218,6 +188,12 @@ public class UIManager : Singleton<UIManager>
             yield return new WaitForSeconds(textSpeed);
         }
 
+        info.text = string.Empty;
         anim.SetBool("info", false);
+    }
+
+    public void ShakeCamera()
+    {
+        mainCam.GetComponent<MainCamera>().anim.SetTrigger("shake");
     }
 }

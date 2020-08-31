@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2763584147143310736}
   - component: {fileID: 8588546294380925576}
   - component: {fileID: 6030950579321590725}
-  - component: {fileID: 2840032838944298778}
+  - component: {fileID: 5549305490298112019}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3609910516732862608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_Children:
   - {fileID: 3955267688857039790}
   m_Father: {fileID: 0}
@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298e0ecdf25756444be5ee8c9335471a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds: {fileID: 2701579428708306575, guid: de5bde0df79fa3b40882efa196379737, type: 3}
+  player: {fileID: 2842248990077862012, guid: a38a3bdd6654b9c49a06a095e68d86d9, type: 3}
   bounces: 0
-  speedFactor: 2
   enemyPoints: 100
   timeBonusScale: 1
 --- !u!50 &6030950579321590725
@@ -72,8 +71,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!61 &2840032838944298778
-BoxCollider2D:
+--- !u!58 &5549305490298112019
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -86,18 +85,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.55
 --- !u!1 &4340968417908309975
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,6 @@ public class UIElement : MonoBehaviour
         float factorY = designRes.x / Screen.width;
         float factorX = designRes.y / Screen.height;
 
-        return new Vector3(target.x * factorX, target.x * factorY, target.z);
+        return new Vector3(target.x * factorX, target.y * factorY, target.z);
     }
 }

@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject[] Prefabs = null;
-    List<GameObject> instantiatedPrefabs;
-    [SerializeField] private GameObject restartContainer = null;
+    List<GameObject> systemPrefabs = new List<GameObject>();
+    public SpriteRenderer bounds = null;
 
-    List<AsyncOperation> loadOperations;
+    List<AsyncOperation> loadOperations = new List<AsyncOperation>();
     public Event.GameStateEvent OnGameStateChange;
     public string currentLevel;
 
     private int score = 0;
-    private int scoreMultiplier = 1; 
+    private int scoreMultiplier = 1;
+
+    [SerializeField] private float _bgSpeed = 1;
+    [HideInInspector] public float bgSpeed = 1;
 
     public enum GameState
     {
@@ -42,10 +46,6 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-
-        loadOperations = new List<AsyncOperation>();
-
-        instantiatedPrefabs = new List<GameObject>();
         InstantiatePrefabs();
     }
 
@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
         for (int i = 0; i < Prefabs.Length; i++)
         {
             prefInstance = Instantiate(Prefabs[i]);
-            instantiatedPrefabs.Add(prefInstance);
+            systemPrefabs.Add(prefInstance);
         }
     }
 
@@ -73,11 +73,6 @@ public class GameManager : Singleton<GameManager>
     {
         currentLevel = lvl;
         StartCoroutine(LevelProgress(lvl));
-    }
-
-    public void LoadLevel()
-    {
-        StartCoroutine(LevelProgress(currentLevel));
     }
 
     public IEnumerator LevelProgress(string lvl)
@@ -108,12 +103,10 @@ public class GameManager : Singleton<GameManager>
 
         if (loadOperations.Count < 1)
         {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevel));
             UpdateState(GameState.RUNNING);
         }
 
-        if (UIManager.Instance.gameOver.activeSelf) { UIManager.Instance.gameOver.SetActive(false); }
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevel));
         Debug.Log("Load complete.");
     }
 
@@ -153,16 +146,12 @@ public class GameManager : Singleton<GameManager>
 
         switch(currentState)
         {
-            case GameState.PREGAME:
-                Time.timeScale = 1;
-                break;
-            case GameState.RUNNING:
-                Time.timeScale = 1;
-                break;
             case GameState.PAUSED:
+                bgSpeed = 0;
                 Time.timeScale = 0;
                 break;
             default:
+                bgSpeed = _bgSpeed;
                 Time.timeScale = 1;
                 break;
         }
@@ -193,28 +182,26 @@ public class GameManager : Singleton<GameManager>
 
     public void Restart()
     {
-        if (_currentState == GameState.PAUSED) { TogglePause(); }
-
-        List<GameObject> rootObjects = new List<GameObject>();
-        SceneManager.GetActiveScene().GetRootGameObjects(rootObjects);
-        foreach(GameObject obj in rootObjects)
-        {
-            Destroy(obj);
-        }
+        UnloadLevel("Main");
 
         score = 0;
         UIManager.Instance.time = 0;
-        UIManager.Instance.toggleDummy();
         UIManager.Instance.anim.SetTrigger("count");
         StartCoroutine(restartCountdown());
     }
 
     private IEnumerator restartCountdown()
     {
+        LoadLevel("Main");
         yield return new WaitForSeconds(3);
 
-        Instantiate(restartContainer);
-        UIManager.Instance.toggleDummy();
+        TogglePlayObjects();
+    }
+
+    public void TogglePlayObjects()
+    {
+        GameObject master = SceneManager.GetActiveScene().GetRootGameObjects()[0];
+        master.SetActive(!master.activeSelf);
     }
 
     public void Quit()
@@ -228,10 +215,10 @@ public class GameManager : Singleton<GameManager>
     {
         base.OnDestroy();
 
-        for (int i = 0; i < instantiatedPrefabs.Count; i++)
+        for (int i = 0; i < systemPrefabs.Count; i++)
         {
-            Destroy(instantiatedPrefabs[i]);
+            Destroy(systemPrefabs[i]);
         }
-        instantiatedPrefabs.Clear();
+        systemPrefabs.Clear();
     }
 }

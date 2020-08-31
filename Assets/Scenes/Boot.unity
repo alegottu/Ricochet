@@ -131,7 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 640454513}
   - component: {fileID: 640454512}
-  - component: {fileID: 640454514}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -152,14 +151,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefabs:
-  - {fileID: 8635572954432440451, guid: 5873bcc0e3433b541a6b161453d61528, type: 3}
+  - {fileID: 1082159592891446016, guid: 168e09856ff3f75418a75e383f3bfb58, type: 3}
   - {fileID: 2246407406885281007, guid: ecca8e5c0209ef44fbffaac1f0fa9585, type: 3}
-  restartContainer: {fileID: 8367805870849786427, guid: 07f0d08a470808242a039c991ebabde7,
+  levelContainer: {fileID: 8367805870849786427, guid: 07f0d08a470808242a039c991ebabde7,
     type: 3}
+  bounds: {fileID: 2992519374409525875, guid: de5bde0df79fa3b40882efa196379737, type: 3}
   OnGameStateChange:
     m_PersistentCalls:
       m_Calls: []
   currentLevel: Menu
+  _bgSpeed: 0.0001
+  bgSpeed: 1
 --- !u!4 &640454513
 Transform:
   m_ObjectHideFlags: 0
@@ -174,20 +176,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &640454514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640454511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91625399f038e254ca8a79b2029e660e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDuration: 0.5
-  magnitude: 0.15
 --- !u!1 &1466824446
 GameObject:
   m_ObjectHideFlags: 0
