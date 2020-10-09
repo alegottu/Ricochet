@@ -153,13 +153,11 @@ MonoBehaviour:
   Prefabs:
   - {fileID: 1082159592891446016, guid: 168e09856ff3f75418a75e383f3bfb58, type: 3}
   - {fileID: 2246407406885281007, guid: ecca8e5c0209ef44fbffaac1f0fa9585, type: 3}
-  levelContainer: {fileID: 8367805870849786427, guid: 07f0d08a470808242a039c991ebabde7,
-    type: 3}
   bounds: {fileID: 2992519374409525875, guid: de5bde0df79fa3b40882efa196379737, type: 3}
   OnGameStateChange:
     m_PersistentCalls:
       m_Calls: []
-  currentLevel: Menu
+  currentLevel: Main
   _bgSpeed: 0.0001
   bgSpeed: 1
 --- !u!4 &640454513
