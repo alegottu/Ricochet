@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public static event Action OnEnemyDestroyed; // Destroyed, not killed
+
     [SerializeField] protected Health health;
     [SerializeField] protected Vector2 speed = Vector2.zero;
     [SerializeField] protected float speedFluctation = 1;
@@ -12,12 +15,14 @@ public abstract class Enemy : MonoBehaviour
     {
         this.player = player;
         speed = speed * speedMultiplier;
-        speed *= Random.Range(1f, speedFluctation);
+        speed *= UnityEngine.Random.Range(1f, speedFluctation);
     }
 
     public void Destroy()
     {
         player.TakeDamage(1);
+        OnEnemyDestroyed?.Invoke();
+
         Destroy(gameObject);
     }
 

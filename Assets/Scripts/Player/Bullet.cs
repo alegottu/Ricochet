@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public static event Action OnBulletDestroyed;
+
     [SerializeField] private PlayerData data = null;
     [SerializeField] private Rigidbody2D rb = null;
 
@@ -9,7 +12,7 @@ public class Bullet : MonoBehaviour
 
     public void SetUp(Health player)
     {
-        transform.eulerAngles = Vector3.forward * Random.Range(data.bulletAngleRange.x, data.bulletAngleRange.y);
+        transform.eulerAngles = Vector3.forward * UnityEngine.Random.Range(data.bulletAngleRange.x, data.bulletAngleRange.y);
         rb.velocity = transform.right * data.bulletSpeed;
 
         this.player = player;
@@ -22,6 +25,7 @@ public class Bullet : MonoBehaviour
 
     private void OnDestroy()
     {
+        OnBulletDestroyed?.Invoke();
         player.TakeDamage(1);
     }
 }

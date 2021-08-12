@@ -10,6 +10,10 @@ public class PlayerMedia : MediaController<Player>
 
         host.OnChargeGained += OnChargeGainedEventHandler;
         host.OnRadiationDamage += OnRadiationDamageEventHandler;
+        Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
+        Enemy.OnEnemyDestroyed += OnEnemyDestroyedEventHandler;
+
+        // todo: add 3 dots for health UI and have it change with OnDamageTaken
     }
 
     private void OnChargeGainedEventHandler(bool gain)
@@ -34,7 +38,12 @@ public class PlayerMedia : MediaController<Player>
         anim.SetTrigger("Kill");
     }
 
-    protected override void OnDamageTakenEventHandler()
+    private void OnBulletDestroyedEventHandler()
+    {
+        anim.SetTrigger("Ammo");
+    }
+
+    private void OnEnemyDestroyedEventHandler()
     {
         anim.SetTrigger("Damage");
     }

@@ -12,11 +12,6 @@ public class EnemyMedia : MediaController<Enemy>
         anim.SetTrigger("Kill");
     }
 
-    protected override void OnDamageTakenEventHandler()
-    {
-        return;
-    }
-
     // For use as an animator event
     private void OnDeathComplete()
     {

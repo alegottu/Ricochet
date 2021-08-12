@@ -4,7 +4,6 @@ using System;
 public class Health : MonoBehaviour
 {
     public event Action OnDeath;
-    public event Action OnDamageTaken;
 
     private int _health = 1;
     public int health { get { return _health; } }
@@ -19,7 +18,6 @@ public class Health : MonoBehaviour
     public void TakeDamage(int amount)
     {
         _health -= amount;
-        OnDamageTaken?.Invoke();
 
         if (_health <= 0)
         {
