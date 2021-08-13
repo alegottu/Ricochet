@@ -11,12 +11,15 @@ public abstract class MediaController<T> : MonoBehaviour
     protected virtual void Awake()
     {
         health.OnDeath += OnDeathEventHandler;
+        health.OnDamageTaken += OnDamageTakenEventHandler;
     }
 
     protected abstract void OnDeathEventHandler();
+    protected abstract void OnDamageTakenEventHandler();
 
     protected virtual void OnDisable()
     {
         health.OnDeath -= OnDeathEventHandler;
+        health.OnDamageTaken -= OnDamageTakenEventHandler;
     }
 }

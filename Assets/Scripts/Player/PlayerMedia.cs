@@ -3,6 +3,7 @@
 public class PlayerMedia : MediaController<Player>
 {
     [SerializeField] private Animator specialMeter = null;
+    [SerializeField] private Animator healthbar = null;
 
     protected override void Awake()
     {
@@ -12,8 +13,6 @@ public class PlayerMedia : MediaController<Player>
         host.OnRadiationDamage += OnRadiationDamageEventHandler;
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         Enemy.OnEnemyDestroyed += OnEnemyDestroyedEventHandler;
-
-        // todo: add 3 dots for health UI and have it change with OnDamageTaken
     }
 
     private void OnChargeGainedEventHandler(bool gain)
@@ -28,14 +27,19 @@ public class PlayerMedia : MediaController<Player>
         }
     }
 
-    private void OnRadiationDamageEventHandler()
-    {
-        anim.SetTrigger("Radiation");
-    }
-
     protected override void OnDeathEventHandler()
     {
         anim.SetTrigger("Kill");
+    }
+
+    protected override void OnDamageTakenEventHandler()
+    {
+        healthbar.SetTrigger("Damage");
+    }
+
+    private void OnRadiationDamageEventHandler()
+    {
+        anim.SetTrigger("Radiation");
     }
 
     private void OnBulletDestroyedEventHandler()

@@ -11,6 +11,16 @@ public abstract class Enemy : MonoBehaviour
 
     private Health player = null;
 
+    protected virtual void OnEnable()
+    {
+        health.OnDeath += OnDeathEventHandler;
+    }
+
+    private void OnDeathEventHandler()
+    {
+        Destroy(this);
+    }
+
     public void SetUp(Health player, float speedMultiplier)
     {
         this.player = player;
@@ -44,5 +54,10 @@ public abstract class Enemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         health.TakeDamage(1);
+    }
+
+    protected virtual void OnDisable()
+    {
+        health.OnDeath -= OnDeathEventHandler;
     }
 }

@@ -2,14 +2,6 @@
 using System;
 using UnityEngine;
 
-/* Improvements:
- * Speed up the ball and figure out how to make that fun
- * Make walls disappear after a set amount of time based on their size (larger = more time, introduces "wall cancels")
- * Take the best of all previous gamemodes and stick with making one great gamemode; to start, have it so that the ball takes health away if it goes out of bounds.
- * Have the "Special" button make 4 walls around the stage and a ghost ball when no wall is drawn; otherwise have the drawn wall perform a special cyclone attack.
-   Additionally, the ball may have to slow down during this attack in order to somewhat decrease its risk.
- */
-
 public class Player : MonoBehaviour
 {
     public event Action<bool> OnChargeGained;

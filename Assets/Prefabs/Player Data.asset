@@ -19,4 +19,4 @@ MonoBehaviour:
   _maxWallLifetime: 5
   _wallAttackTime: 2.5
   _wallAttackSpeed: 1080
-  _radDeplete: 3
+  _radDeplete: 1

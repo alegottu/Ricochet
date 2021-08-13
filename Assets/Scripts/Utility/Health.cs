@@ -3,6 +3,7 @@ using System;
 
 public class Health : MonoBehaviour
 {
+    public event Action OnDamageTaken;
     public event Action OnDeath;
 
     private int _health = 1;
@@ -23,12 +24,13 @@ public class Health : MonoBehaviour
         {
             Die();
         }
+
+        OnDamageTaken?.Invoke();
     }
 
     public void Heal(int amount)
     {
-        _health += amount;
-        _health = _health > maxHealth ? maxHealth : _health; 
+        _health = Mathf.Min(_maxHealth, _health + amount);
     }
 
     public void Die()

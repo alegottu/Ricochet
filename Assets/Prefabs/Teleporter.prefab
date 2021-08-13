@@ -15,7 +15,7 @@ MonoBehaviour:
   health: {fileID: 8408310823362397150}
   speed: {x: 0, y: 1}
   speedFluctation: 2
-  media: {fileID: 0}
+  media: {fileID: 1997105543565874943}
   teleportCooldown: 2
 --- !u!1001 &2111081849017194125
 PrefabInstance:
@@ -112,5 +112,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39117397773d4b147ae15d8b9e28fde3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1997105543565874943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 503054231734108274, guid: 340ab91fa06516a4dbad5b206a06fe35,
+    type: 3}
+  m_PrefabInstance: {fileID: 2111081849017194125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757639921558065697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77ac1330f88d2cf4e8dbc2210d4c948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -12,6 +12,11 @@ public class EnemyMedia : MediaController<Enemy>
         anim.SetTrigger("Kill");
     }
 
+    protected override void OnDamageTakenEventHandler()
+    {
+        return; // add separate damage animation that can not be triggered after death is triggered
+    }
+
     // For use as an animator event
     private void OnDeathComplete()
     {
