@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 459991043911271107}
   - component: {fileID: -6335816365442305627}
   - component: {fileID: 599576376}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,3 +99,4 @@ MonoBehaviour:
   sprite: {fileID: 0}
   health: {fileID: -6335816365442305627}
   specialMeter: {fileID: 0}
+  healthbar: {fileID: 0}

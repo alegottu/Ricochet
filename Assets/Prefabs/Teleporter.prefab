@@ -15,8 +15,6 @@ MonoBehaviour:
   health: {fileID: 8408310823362397150}
   speed: {x: 0, y: 1}
   speedFluctation: 2
-  media: {fileID: 1997105543565874943}
-  teleportCooldown: 2
 --- !u!1001 &2111081849017194125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34,6 +32,18 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2336996828548307977, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 10f791deb3809404896c02824cf79010,
+        type: 3}
+    - target: {fileID: 4964475112446276768, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 94ac4c7d72ec0754abcdd2cf454b9e2d,
+        type: 2}
     - target: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: m_Name
@@ -94,6 +104,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8151667462239117054, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 340ab91fa06516a4dbad5b206a06fe35, type: 3}
 --- !u!1 &5757639921558065697 stripped
@@ -112,17 +127,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39117397773d4b147ae15d8b9e28fde3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1997105543565874943 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 503054231734108274, guid: 340ab91fa06516a4dbad5b206a06fe35,
-    type: 3}
-  m_PrefabInstance: {fileID: 2111081849017194125}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5757639921558065697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ac1330f88d2cf4e8dbc2210d4c948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

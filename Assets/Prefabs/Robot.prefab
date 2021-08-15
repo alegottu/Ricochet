@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 6344791989666578941}
-  speed: {x: 0, y: 1}
+  speed: {x: 0.5, y: 1}
   speedFluctation: 2
 --- !u!1001 &3598790989402428590
 PrefabInstance:

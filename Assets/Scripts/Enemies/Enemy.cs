@@ -25,7 +25,8 @@ public abstract class Enemy : MonoBehaviour
     {
         this.player = player;
         speed = speed * speedMultiplier;
-        speed *= UnityEngine.Random.Range(1f, speedFluctation);
+        speed *= new Vector2(UnityEngine.Random.Range(1f, speedFluctation),
+            UnityEngine.Random.Range(1f, speedFluctation));
     }
 
     public void Destroy()
@@ -39,6 +40,11 @@ public abstract class Enemy : MonoBehaviour
     public void Kill()
     {
         health.TakeDamage(health.maxHealth);
+    }
+
+    public void Turn()
+    {
+        speed *= new Vector2(-1, 1);
     }
 
     protected virtual void Move()

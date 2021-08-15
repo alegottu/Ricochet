@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 8005445550678898523}
-  speed: {x: 0, y: 0.5}
+  speed: {x: 0.5, y: 0.5}
   speedFluctation: 1
 --- !u!1001 &496888773428453896
 PrefabInstance:
@@ -27,6 +27,12 @@ PrefabInstance:
       propertyPath: host
       value: 
       objectReference: {fileID: 119129536476761990}
+    - target: {fileID: 2336996828548307977, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e22c478c886d4fd43bf23e4cfd165348,
+        type: 3}
     - target: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: m_Name
@@ -91,6 +97,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _health
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: _maxHealth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8151667462239117054, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 340ab91fa06516a4dbad5b206a06fe35, type: 3}

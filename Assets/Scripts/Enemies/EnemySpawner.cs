@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemyPos = SpawnEnemy(currentEnemyPos);
             yield return new WaitForSeconds(spawnCooldown);
-            spawnCooldown -= data.spawnRateDecrease;
+            spawnCooldown -= data.spawnRateDecrease; // consider having the spawn cooldown be dictated by an array of fixed values too
             difficultyMultiplier += data.difficultyMultiplierIncrease;
         }
     }
