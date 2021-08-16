@@ -16,6 +16,11 @@ public class Tank : Enemy
         StartCoroutine(Snake());
     }
 
+    protected override void FixedUpdate()
+    {
+        return;
+    }
+
     private IEnumerator Snake()
     {
         float downTime;

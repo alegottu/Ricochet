@@ -52,7 +52,7 @@ public abstract class Enemy : MonoBehaviour
         transform.position -= (Vector3)speed * Time.deltaTime;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         Move();
     }

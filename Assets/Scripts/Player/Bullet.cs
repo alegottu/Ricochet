@@ -18,12 +18,17 @@ public class Bullet : MonoBehaviour
 
     private void OnWallAttackEventHandler(float attackTime)
     {
-        
+        StartCoroutine(SlowDown(attackTime));
     }
 
     private IEnumerator SlowDown(float attackTime)
     {
-        yield return new WaitForEndOfFrame();
+        Vector2 originalSpeed = rb.velocity;
+        rb.velocity = Vector2.zero;
+
+        yield return new WaitForSeconds(attackTime);
+
+        rb.velocity = originalSpeed;
     }
 
     public void SetUp(Health player)
