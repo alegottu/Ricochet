@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 8005445550678898523}
-  speed: {x: 0.5, y: 0.5}
+  speed: {x: 1, y: 1}
   speedFluctation: 1
+  pathCycles: 3
 --- !u!1001 &496888773428453896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: _maxHealth
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8151667462239117054, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}

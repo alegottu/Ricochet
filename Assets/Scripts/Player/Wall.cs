@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Wall : TemporaryObject
 {
+    public static event Action<float> OnWallAttack; // float for communicating attack duration
+
     [SerializeField] private PlayerData data = null;
     [SerializeField] private EdgeCollider2D edge = null;
     [SerializeField] private LineRenderer render = null;
@@ -38,6 +41,7 @@ public class Wall : TemporaryObject
         StopAllCoroutines();
         StartCoroutine(Cyclone());
         attacking = true;
+        OnWallAttack?.Invoke(data.wallAttackTime);
     }
 
     private IEnumerator Cyclone()

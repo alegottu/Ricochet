@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae0bc7904f93da4bbd6a874db683495, type: 3}
   m_Name: Spawner Data
   m_EditorClassIdentifier: 
-  _baseDeathsThreshold: 7
+  _baseDeathsThreshold: 2
   _spawningRange: 12
   _spawnBufferSize: 1
   _baseSpawnRate: 7

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+// fix poolsize from going out of bounds
+
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyPrefabs = null;

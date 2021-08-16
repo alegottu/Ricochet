@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,6 +10,21 @@ public class Bullet : MonoBehaviour
     [SerializeField] private Rigidbody2D rb = null;
 
     private Health player = null;
+
+    private void Awake()
+    {
+        Wall.OnWallAttack += OnWallAttackEventHandler;
+    }
+
+    private void OnWallAttackEventHandler(float attackTime)
+    {
+        
+    }
+
+    private IEnumerator SlowDown(float attackTime)
+    {
+        yield return new WaitForEndOfFrame();
+    }
 
     public void SetUp(Health player)
     {
@@ -27,5 +43,7 @@ public class Bullet : MonoBehaviour
     {
         OnBulletDestroyed?.Invoke();
         player.TakeDamage(1);
+
+        Wall.OnWallAttack -= OnWallAttackEventHandler;
     }
 }
