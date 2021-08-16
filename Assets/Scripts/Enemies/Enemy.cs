@@ -5,6 +5,7 @@ public abstract class Enemy : MonoBehaviour
 {
     public static event Action OnEnemyDestroyed; // Destroyed, not killed
 
+    [SerializeField] protected Rigidbody2D rb = null;
     [SerializeField] protected Health health;
     [SerializeField] protected Vector2 speed = Vector2.zero;
     [SerializeField] protected float speedFluctation = 1;
@@ -21,12 +22,13 @@ public abstract class Enemy : MonoBehaviour
         Destroy(this);
     }
 
-    public void SetUp(Health player, float speedMultiplier)
+    public virtual void SetUp(Health player, float speedMultiplier)
     {
         this.player = player;
         speed = speed * speedMultiplier;
         speed *= new Vector2(UnityEngine.Random.Range(1f, speedFluctation),
             UnityEngine.Random.Range(1f, speedFluctation));
+        rb.velocity = speed;
     }
 
     public void Destroy()
@@ -44,17 +46,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void Turn()
     {
-        speed *= new Vector2(-1, 1);
-    }
-
-    protected virtual void Move()
-    {
-        transform.position -= (Vector3)speed * Time.deltaTime;
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        Move();
+        rb.velocity *= new Vector2(-1, 1);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

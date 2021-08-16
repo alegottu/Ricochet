@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-// fix poolsize from going out of bounds
-
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyPrefabs = null;
@@ -10,14 +8,37 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private SpawnerData data = null;
 
     private float difficultyMultiplier = 1;
-    private float spawnCooldown = 0;
-    private int poolSize = 1;
-    private int deaths = 0;
+    private float spawnCooldown;
+    private int deaths;
+    private int poolsAvailable = 1;
 
     private void Awake()
     {
-        spawnCooldown = data.baseSpawnRate;
+        spawnCooldown = data.spawnRateRange.x;
         StartCoroutine(SpawnEnemies());
+    }
+
+    private int GetEnemy()
+    {
+        int ticket = Random.Range(0, 100);
+        Vector2 winningRange = Vector2.zero;
+
+        if (poolsAvailable == 1)
+        {
+            return 0;
+        }
+
+        for (int i = 0; i < poolsAvailable; ++i)
+        {
+            winningRange = new Vector2(winningRange.y, data.spawnChance[i]);
+
+            if (ticket >= winningRange.x && ticket <= winningRange.y)
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 
     private Vector3 SpawnEnemy(Vector3 previousEnemyPos)
@@ -28,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
             position = transform.position + Vector3.right * Random.Range(-data.spawningRange, data.spawningRange);
         }
 
-        GameObject currentEnemy = Instantiate(enemyPrefabs[Random.Range(0, poolSize)], position, Quaternion.identity);
+        GameObject currentEnemy = Instantiate(enemyPrefabs[GetEnemy()], position, Quaternion.identity);
         currentEnemy.GetComponent<Enemy>().SetUp(player, difficultyMultiplier);
         currentEnemy.GetComponent<Health>().OnDeath += OnEnemyDeathEventHandler;
         
@@ -43,8 +64,8 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemyPos = SpawnEnemy(currentEnemyPos);
             yield return new WaitForSeconds(spawnCooldown);
-            spawnCooldown -= data.spawnRateDecrease; // consider having the spawn cooldown be dictated by an array of fixed values too
-            difficultyMultiplier += data.difficultyMultiplierIncrease;
+            spawnCooldown = Mathf.Max(spawnCooldown - data.spawnRateDecrease, data.spawnRateRange.y); // consider having the spawn cooldown be dictated by an array of fixed values too
+            difficultyMultiplier = Mathf.Min(difficultyMultiplier - data.difficultyMultiplierIncrease, data.maxDifficultyMultiplier);
         }
     }
 
@@ -54,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (deaths >= data.baseDeathsThreshold * difficultyMultiplier)
         {
-            poolSize++;
+            poolsAvailable = Mathf.Min(enemyPrefabs.Length, poolsAvailable + 1);
         }
     }
 }

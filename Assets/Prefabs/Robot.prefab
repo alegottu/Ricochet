@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831a5519cf3476542ab8b84fe5631f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 792190619088659380}
   health: {fileID: 6344791989666578941}
-  speed: {x: 0.5, y: 1}
+  speed: {x: 0.5, y: -1}
   speedFluctation: 2
 --- !u!1001 &3598790989402428590
 PrefabInstance:
@@ -87,11 +88,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8151667462239117054, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 340ab91fa06516a4dbad5b206a06fe35, type: 3}
 --- !u!1 &7159130864169193474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
+    type: 3}
+  m_PrefabInstance: {fileID: 3598790989402428590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &792190619088659380 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: -4967729333421967590, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
   m_PrefabInstance: {fileID: 3598790989402428590}
   m_PrefabAsset: {fileID: 0}

@@ -47,5 +47,9 @@ MonoBehaviour:
   - {fileID: 7159130864169193474, guid: fed405d80d8bfe84f9a94184a1f629b2, type: 3}
   - {fileID: 6074902304123217572, guid: 434ff89b4af7a9647ad95fab515fd4a0, type: 3}
   - {fileID: 5757639921558065697, guid: 5234ea060e5f79b4eb7aa1ac0a5ec55f, type: 3}
+  spawnChance:
+  - 50
+  - 25
+  - 25
   player: {fileID: 0}
   data: {fileID: 11400000, guid: adcf3a46deae6eb4cabc2b96fe6afed8, type: 2}

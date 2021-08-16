@@ -12,12 +12,18 @@ public class SpawnerData : ScriptableObject
     [SerializeField] private float _spawnBufferSize = 0; // The size that indicates the area which the previous spawn took up
     public float spawnBufferSize { get { return _spawnBufferSize; } }
 
-    [SerializeField] private float _baseSpawnRate = 0;
-    public float baseSpawnRate { get { return _baseSpawnRate; } }
+    [SerializeField] private Vector2 _spawnRateRange = Vector2.zero; // x is the base, y is the minimum
+    public Vector2 spawnRateRange { get { return _spawnRateRange; } }
 
     [SerializeField] private float _spawnRateDecrease = 0; // The amount by which the spawn rate decreases (in seconds) every cycle
     public float spawnRateDecrease { get { return _spawnRateDecrease; } }
 
+    [SerializeField] private float[] _spawnChance = null; // index i corresponds to the percent chance that enemyPrefabs[i] will spawn
+    public float[] spawnChance { get { return _spawnChance; } }
+
     [SerializeField] private float _difficultyMultiplierIncrease = 0; // The amount by which the diffculty multiplier increases each cycle
     public float difficultyMultiplierIncrease { get { return _difficultyMultiplierIncrease; } }
+
+    [SerializeField] private float _maxDifficultyMultiplier = 0; // x is the minimum, y is the maximum
+    public float maxDifficultyMultiplier { get { return _maxDifficultyMultiplier; } }
 }

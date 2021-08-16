@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3b2bd4adf4db34ba87d65ea7d1d94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 4461477101694702866}
   health: {fileID: 8005445550678898523}
-  speed: {x: 1, y: 1}
+  speed: {x: 1, y: -1}
   speedFluctation: 1
   pathCycles: 3
 --- !u!1001 &496888773428453896
@@ -114,6 +115,12 @@ PrefabInstance:
 --- !u!1 &6074902304123217572 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
+    type: 3}
+  m_PrefabInstance: {fileID: 496888773428453896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &4461477101694702866 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: -4967729333421967590, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
   m_PrefabInstance: {fileID: 496888773428453896}
   m_PrefabAsset: {fileID: 0}
