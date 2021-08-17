@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Spawner Data", menuName = "Spawner Data", order = 2)]
+[CreateAssetMenu(fileName = "New Spawner Data", menuName = "Spawner Data", order = 3)]
 public class SpawnerData : ScriptableObject
 {
     [SerializeField] private int _baseDeathsThreshold = 0; // The base amount of enemy deaths required for the difficulty to change
@@ -18,8 +18,8 @@ public class SpawnerData : ScriptableObject
     [SerializeField] private float _spawnRateDecrease = 0; // The amount by which the spawn rate decreases (in seconds) every cycle
     public float spawnRateDecrease { get { return _spawnRateDecrease; } }
 
-    [SerializeField] private float[] _spawnChance = null; // index i corresponds to the percent chance that enemyPrefabs[i] will spawn
-    public float[] spawnChance { get { return _spawnChance; } }
+    [SerializeField] private int[] _spawnChances = null; // index i corresponds to the percent chance that enemyPrefabs[i] will spawn
+    public int[] spawnChances { get { return _spawnChances; } }
 
     [SerializeField] private float _difficultyMultiplierIncrease = 0; // The amount by which the diffculty multiplier increases each cycle
     public float difficultyMultiplierIncrease { get { return _difficultyMultiplierIncrease; } }

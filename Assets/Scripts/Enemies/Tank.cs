@@ -14,19 +14,19 @@ public class Tank : Enemy
     private IEnumerator Snake()
     {
         float downDistance = Bounds.size.y / pathCycles; // The distance the tank moves downward for each path cycle
-        float downTime;
+        float downTime = downDistance / data.speed;
         float lateralDistance;
         float lateralTime;
-        float previousSpeedX = speed.x;
+        float previousSpeedX = data.speed;
+        float velocityY = data.speed * data.direction.y;
 
         while (true)
         {
-            downTime = downDistance / -speed.y; // speed.y will always be negative, has to be negated for time calculation
-            rb.velocity = new Vector2(0, speed.y);
+            rb.velocity = new Vector2(0, velocityY);
             yield return new WaitForSeconds(downTime);
 
             lateralDistance = Random.Range(0, previousSpeedX > 0 ? transform.position.x : Bounds.size.x - transform.position.x);
-            lateralTime = lateralDistance / speed.x;
+            lateralTime = lateralDistance / data.speed;
             rb.velocity = new Vector2(-previousSpeedX, 0);
             yield return new WaitForSeconds(lateralTime);
 

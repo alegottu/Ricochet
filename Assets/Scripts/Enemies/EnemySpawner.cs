@@ -9,8 +9,9 @@ public class EnemySpawner : MonoBehaviour
 
     private float difficultyMultiplier = 1;
     private float spawnCooldown;
-    private int deaths;
+    private int deaths = 0;
     private int poolsAvailable = 1;
+    private int spawnChanceTotal;
 
     private void Awake()
     {
@@ -20,17 +21,18 @@ public class EnemySpawner : MonoBehaviour
 
     private int GetEnemy()
     {
-        int ticket = Random.Range(0, 100);
-        Vector2 winningRange = Vector2.zero;
-
         if (poolsAvailable == 1)
         {
             return 0;
         }
 
-        for (int i = 0; i < poolsAvailable; ++i)
+        int ticket = Random.Range(0, spawnChanceTotal);
+        Vector2 winningRange = Vector2.zero;
+
+        for (int i = 0; i < poolsAvailable; i++)
         {
-            winningRange = new Vector2(winningRange.y, data.spawnChance[i]);
+            winningRange = new Vector2(winningRange.y, winningRange.y + data.spawnChances[i]);
+            print(ticket + " : " + winningRange.x + "-" + winningRange.y);
 
             if (ticket >= winningRange.x && ticket <= winningRange.y)
             {
@@ -49,7 +51,9 @@ public class EnemySpawner : MonoBehaviour
             position = transform.position + Vector3.right * Random.Range(-data.spawningRange, data.spawningRange);
         }
 
-        GameObject currentEnemy = Instantiate(enemyPrefabs[GetEnemy()], position, Quaternion.identity);
+        int index = GetEnemy();
+        print(index + " / " + (poolsAvailable - 1));
+        GameObject currentEnemy = Instantiate(enemyPrefabs[index], position, Quaternion.identity);
         currentEnemy.GetComponent<Enemy>().SetUp(player, difficultyMultiplier);
         currentEnemy.GetComponent<Health>().OnDeath += OnEnemyDeathEventHandler;
         
@@ -64,8 +68,9 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemyPos = SpawnEnemy(currentEnemyPos);
             yield return new WaitForSeconds(spawnCooldown);
+
             spawnCooldown = Mathf.Max(spawnCooldown - data.spawnRateDecrease, data.spawnRateRange.y); // consider having the spawn cooldown be dictated by an array of fixed values too
-            difficultyMultiplier = Mathf.Min(difficultyMultiplier - data.difficultyMultiplierIncrease, data.maxDifficultyMultiplier);
+            difficultyMultiplier = Mathf.Min(difficultyMultiplier + data.difficultyMultiplierIncrease, data.maxDifficultyMultiplier);
         }
     }
 
@@ -73,9 +78,13 @@ public class EnemySpawner : MonoBehaviour
     {
         deaths++;
 
-        if (deaths >= data.baseDeathsThreshold * difficultyMultiplier)
+        if (poolsAvailable < enemyPrefabs.Length && deaths >= data.baseDeathsThreshold * difficultyMultiplier)
         {
-            poolsAvailable = Mathf.Min(enemyPrefabs.Length, poolsAvailable + 1);
+            poolsAvailable++;
+
+            spawnChanceTotal = 0;
+            for (int i = 0; i < poolsAvailable; i++)
+                spawnChanceTotal += data.spawnChances[i];
         }
     }
 }

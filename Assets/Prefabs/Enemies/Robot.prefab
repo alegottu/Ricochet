@@ -1,22 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1964716699371305000
+--- !u!114 &744487922729410387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5757639921558065697}
+  m_GameObject: {fileID: 7159130864169193474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f81d739d8a635548aecb1f1adfaf343, type: 3}
+  m_Script: {fileID: 11500000, guid: 831a5519cf3476542ab8b84fe5631f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 2757053703963386263}
-  health: {fileID: 8408310823362397150}
-  speed: {x: 0, y: -1}
-  speedFluctation: 2
---- !u!1001 &2111081849017194125
+  rb: {fileID: 792190619088659380}
+  health: {fileID: 6344791989666578941}
+  data: {fileID: 11400000, guid: abc5dcb98883da24ba66957825b5027e, type: 2}
+--- !u!1001 &3598790989402428590
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -27,28 +26,11 @@ PrefabInstance:
         type: 3}
       propertyPath: host
       value: 
-      objectReference: {fileID: 1964716699371305000}
-    - target: {fileID: 2336996828548307977, guid: 340ab91fa06516a4dbad5b206a06fe35,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336996828548307977, guid: 340ab91fa06516a4dbad5b206a06fe35,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 10f791deb3809404896c02824cf79010,
-        type: 3}
-    - target: {fileID: 4964475112446276768, guid: 340ab91fa06516a4dbad5b206a06fe35,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 22100000, guid: 94ac4c7d72ec0754abcdd2cf454b9e2d,
-        type: 2}
+      objectReference: {fileID: 744487922729410387}
     - target: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: m_Name
-      value: Teleporter
+      value: Robot
       objectReference: {fileID: 0}
     - target: {fileID: 6955340114696114522, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
@@ -112,25 +94,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 340ab91fa06516a4dbad5b206a06fe35, type: 3}
---- !u!1 &5757639921558065697 stripped
+--- !u!1 &7159130864169193474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
-  m_PrefabInstance: {fileID: 2111081849017194125}
+  m_PrefabInstance: {fileID: 3598790989402428590}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &2757053703963386263 stripped
+--- !u!50 &792190619088659380 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: -4967729333421967590, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
-  m_PrefabInstance: {fileID: 2111081849017194125}
+  m_PrefabInstance: {fileID: 3598790989402428590}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8408310823362397150 stripped
+--- !u!114 &6344791989666578941 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
-  m_PrefabInstance: {fileID: 2111081849017194125}
+  m_PrefabInstance: {fileID: 3598790989402428590}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5757639921558065697}
+  m_GameObject: {fileID: 7159130864169193474}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39117397773d4b147ae15d8b9e28fde3, type: 3}

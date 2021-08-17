@@ -1,22 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &744487922729410387
+--- !u!114 &119129536476761990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7159130864169193474}
+  m_GameObject: {fileID: 6074902304123217572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831a5519cf3476542ab8b84fe5631f04, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f3b2bd4adf4db34ba87d65ea7d1d94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 792190619088659380}
-  health: {fileID: 6344791989666578941}
-  speed: {x: 0.5, y: -1}
-  speedFluctation: 2
---- !u!1001 &3598790989402428590
+  rb: {fileID: 4461477101694702866}
+  health: {fileID: 8005445550678898523}
+  data: {fileID: 11400000, guid: cb4cc604711c917409576eaad2b3d99a, type: 2}
+  pathCycles: 3
+--- !u!1001 &496888773428453896
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -27,11 +27,17 @@ PrefabInstance:
         type: 3}
       propertyPath: host
       value: 
-      objectReference: {fileID: 744487922729410387}
+      objectReference: {fileID: 119129536476761990}
+    - target: {fileID: 2336996828548307977, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e22c478c886d4fd43bf23e4cfd165348,
+        type: 3}
     - target: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: m_Name
-      value: Robot
+      value: Tank
       objectReference: {fileID: 0}
     - target: {fileID: 6955340114696114522, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
@@ -88,6 +94,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: _health
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: _maxHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8151667462239117054, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: m_Material
@@ -95,25 +111,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 340ab91fa06516a4dbad5b206a06fe35, type: 3}
---- !u!1 &7159130864169193474 stripped
+--- !u!1 &6074902304123217572 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5956906340392780972, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
-  m_PrefabInstance: {fileID: 3598790989402428590}
+  m_PrefabInstance: {fileID: 496888773428453896}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &792190619088659380 stripped
+--- !u!50 &4461477101694702866 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: -4967729333421967590, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
-  m_PrefabInstance: {fileID: 3598790989402428590}
+  m_PrefabInstance: {fileID: 496888773428453896}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6344791989666578941 stripped
+--- !u!114 &8005445550678898523 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
     type: 3}
-  m_PrefabInstance: {fileID: 3598790989402428590}
+  m_PrefabInstance: {fileID: 496888773428453896}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7159130864169193474}
+  m_GameObject: {fileID: 6074902304123217572}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39117397773d4b147ae15d8b9e28fde3, type: 3}

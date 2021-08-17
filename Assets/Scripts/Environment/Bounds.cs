@@ -13,7 +13,7 @@ public class Bounds : MonoBehaviour
     {
         if (collider.TryGetComponent(out Enemy enemy))
         {
-            enemy.Turn();
+            enemy.Reflect();
         }
     }
 }

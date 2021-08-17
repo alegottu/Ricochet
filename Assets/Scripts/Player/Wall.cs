@@ -10,8 +10,6 @@ public class Wall : TemporaryObject
     [SerializeField] private EdgeCollider2D edge = null;
     [SerializeField] private LineRenderer render = null;
 
-    private bool attacking = false;
-
     // The distance of this wall turned into a percentage of the greatest possible length of a wall, found by the pythagorean theorem using the stage's scale
     public float GetPercent()
     {
@@ -38,9 +36,11 @@ public class Wall : TemporaryObject
 
     public void Attack()
     {
+        gameObject.layer = 0; // Changes layers so it can collide with Enemies
+
         StopAllCoroutines();
         StartCoroutine(Cyclone());
-        attacking = true;
+        
         OnWallAttack?.Invoke(data.wallAttackTime);
     }
 
@@ -55,24 +55,5 @@ public class Wall : TemporaryObject
         }
 
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!attacking)
-        {
-            if (collision.TryGetComponent(out Bullet bullet))
-            {
-                Vector2 direction = (edge.points[1] - edge.points[0]).normalized;
-                bullet.Reflect(Vector2.Perpendicular(direction));
-            }
-        }
-        else
-        {
-            if (collision.TryGetComponent(out Enemy enemy))
-            {
-                enemy.Kill();
-            }
-        }
     }
 }

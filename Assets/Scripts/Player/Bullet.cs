@@ -39,9 +39,9 @@ public class Bullet : MonoBehaviour
         this.player = player;
     }
 
-    public void Reflect(Vector3 surfaceNormal)
+    private void OnCollisionExit2D(Collision2D _)
     {
-        rb.velocity = Vector3.Reflect(rb.velocity, surfaceNormal);
+        rb.velocity = rb.velocity.normalized * data.bulletSpeed; // To ensure the bullet never slows down off of odd collisions
     }
 
     private void OnDestroy()

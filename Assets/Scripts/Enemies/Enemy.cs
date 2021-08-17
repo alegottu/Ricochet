@@ -6,9 +6,8 @@ public abstract class Enemy : MonoBehaviour
     public static event Action OnEnemyDestroyed; // Destroyed, not killed
 
     [SerializeField] protected Rigidbody2D rb = null;
-    [SerializeField] protected Health health;
-    [SerializeField] protected Vector2 speed = Vector2.zero;
-    [SerializeField] protected float speedFluctation = 1;
+    [SerializeField] protected Health health = null;
+    [SerializeField] protected EnemyData data = null;
 
     private Health player = null;
 
@@ -25,10 +24,14 @@ public abstract class Enemy : MonoBehaviour
     public virtual void SetUp(Health player, float speedMultiplier)
     {
         this.player = player;
-        speed = speed * speedMultiplier;
-        speed *= new Vector2(UnityEngine.Random.Range(1f, speedFluctation),
-            UnityEngine.Random.Range(1f, speedFluctation));
-        rb.velocity = speed;
+
+        rb.velocity = data.speed * new Vector2(data.direction.x * UnityEngine.Random.Range(0f, 1f), data.direction.y);
+        rb.velocity *= UnityEngine.Random.Range(1f, data.speedFluctation);
+
+        if (UnityEngine.Random.Range(-1, 1) == -1)
+        {
+            Reflect();
+        }
     }
 
     public void Destroy()
@@ -39,14 +42,9 @@ public abstract class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Kill()
+    public void Reflect()
     {
-        health.TakeDamage(health.maxHealth);
-    }
-
-    public void Turn()
-    {
-        rb.velocity *= new Vector2(-1, 1);
+        rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

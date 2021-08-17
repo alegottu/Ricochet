@@ -15,6 +15,11 @@ MonoBehaviour:
   _baseDeathsThreshold: 2
   _spawningRange: 12
   _spawnBufferSize: 1
-  _baseSpawnRate: 7
-  _spawnRateDecrease: 0.1
+  _spawnRateRange: {x: 5, y: 1}
+  _spawnRateDecrease: 0.2
+  _spawnChances:
+  - 40
+  - 30
+  - 30
   _difficultyMultiplierIncrease: 0.1
+  _maxDifficultyMultiplier: 5
