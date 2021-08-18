@@ -1,37 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController : Singleton<SceneController>
 {
-    public static event Action OnQuit;
-
     [HideInInspector] public string previousLevel = string.Empty;
     public string currentLevel = string.Empty;
     [SerializeField] private GameStateManager gameState = null;
+
     private bool transitionActive = false;
-
     private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
-
-    private void OnEnable()
-    {
-        GameStateManager.OnGameStateChange += OnGameStateChangeEventHandler;
-    }
-
-    private void OnGameStateChangeEventHandler(GameStateManager.GameState previous, GameStateManager.GameState current)
-    {
-        if (transitionActive && previous == GameStateManager.GameState.RUNNING && current == GameStateManager.GameState.RUNNING)
-        {
-            UnloadLevel();
-        }
-    }
-
-    public void SetTransitionActive(bool enabled)
-    {
-        transitionActive = enabled;
-    }
 
     private void Start()
     {
@@ -46,11 +25,16 @@ public class SceneController : Singleton<SceneController>
         StartCoroutine(LevelProgress(lvl));
     }
 
-    public IEnumerator LevelProgress(string lvl)
+    private IEnumerator LevelProgress(string lvl)
     {
         AsyncOperation ao = SceneManager.LoadSceneAsync(lvl, LoadSceneMode.Additive);
         loadOperations.Add(ao);
         ao.completed += OnLoadComplete;
+
+        if (transitionActive)
+        {
+            ao.completed += TransitionHandler;
+        }
 
         if (ao == null)
         {
@@ -81,6 +65,16 @@ public class SceneController : Singleton<SceneController>
         Debug.Log("Load complete.");
     }
 
+    public void SetTransitionActive(bool enabled)
+    {
+        transitionActive = enabled;
+    }
+
+    private void TransitionHandler(AsyncOperation ao)
+    {
+        UnloadLevel();
+    }
+
     public void UnloadLevel(string lvl)
     {
         AsyncOperation ao = SceneManager.UnloadSceneAsync(lvl);
@@ -99,31 +93,16 @@ public class SceneController : Singleton<SceneController>
         UnloadLevel(previousLevel);
     }
 
+    public void UnloadObjects()
+    {
+        foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            Destroy(obj);
+        }
+    }
+
     private void OnUnloadComplete(AsyncOperation ao)
     {
         Debug.Log("Unload complete.");
-    }
-
-    public string SwitchLevel(string lvl)
-    {
-        string result = previousLevel;
-
-        previousLevel = currentLevel;
-        gameState.UpdateState(GameStateManager.GameState.RUNNING);
-        currentLevel = lvl;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(lvl));
-
-        return result;
-    }
-
-    public void Quit()
-    {
-        OnQuit?.Invoke();
-        LoadLevel("Menu");
-    }
-
-    private void OnDisable()
-    {
-        GameStateManager.OnGameStateChange -= OnGameStateChangeEventHandler;
     }
 }

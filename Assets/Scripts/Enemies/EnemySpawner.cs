@@ -32,7 +32,6 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < poolsAvailable; i++)
         {
             winningRange = new Vector2(winningRange.y, winningRange.y + data.spawnChances[i]);
-            print(ticket + " : " + winningRange.x + "-" + winningRange.y);
 
             if (ticket >= winningRange.x && ticket <= winningRange.y)
             {
@@ -51,9 +50,7 @@ public class EnemySpawner : MonoBehaviour
             position = transform.position + Vector3.right * Random.Range(-data.spawningRange, data.spawningRange);
         }
 
-        int index = GetEnemy();
-        print(index + " / " + (poolsAvailable - 1));
-        GameObject currentEnemy = Instantiate(enemyPrefabs[index], position, Quaternion.identity);
+        GameObject currentEnemy = Instantiate(enemyPrefabs[GetEnemy()], position, Quaternion.identity);
         currentEnemy.GetComponent<Enemy>().SetUp(player, difficultyMultiplier);
         currentEnemy.GetComponent<Health>().OnDeath += OnEnemyDeathEventHandler;
         

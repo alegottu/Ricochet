@@ -5,9 +5,9 @@ public class PlayerMedia : MediaController<Player>
     [SerializeField] private Animator specialMeter = null;
     [SerializeField] private Animator healthbar = null;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
 
         host.OnChargeGained += OnChargeGainedEventHandler;
         host.OnRadiationDamage += OnRadiationDamageEventHandler;
@@ -50,5 +50,15 @@ public class PlayerMedia : MediaController<Player>
     private void OnEnemyDestroyedEventHandler()
     {
         anim.SetTrigger("Damage");
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+
+        host.OnChargeGained -= OnChargeGainedEventHandler;
+        host.OnRadiationDamage -= OnRadiationDamageEventHandler;
+        Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;
+        Enemy.OnEnemyDestroyed -= OnEnemyDestroyedEventHandler;
     }
 }

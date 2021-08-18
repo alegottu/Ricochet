@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   _specialCharges: 2
-  _rechargeTime: 5
+  _rechargeTime: 15
   _bulletSpeed: 15
   _bulletAngleRange: {x: 45, y: 90}
   _maxWallLifetime: 5
-  _wallAttackTime: 2.5
+  _wallAttackTime: 1
   _wallAttackSpeed: 1080
-  _radDeplete: 1
+  _radDeplete: 0.25

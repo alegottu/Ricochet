@@ -8,7 +8,7 @@ public abstract class MediaController<T> : MonoBehaviour
     [SerializeField] protected SpriteRenderer sprite = null;
     [SerializeField] protected Health health = null;
 
-    protected virtual void Awake()
+    protected virtual void OnEnable()
     {
         health.OnDeath += OnDeathEventHandler;
         health.OnDamageTaken += OnDamageTakenEventHandler;
