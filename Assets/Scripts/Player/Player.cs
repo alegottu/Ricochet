@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
     {
         radPercent += wall.GetPercent();
 
-        if (radPercent > 1)
+        if (radPercent > data.radThreshold)
         {
             health.TakeDamage(1);
             OnRadiationDamage?.Invoke();

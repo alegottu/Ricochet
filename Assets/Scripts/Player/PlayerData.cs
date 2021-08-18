@@ -27,4 +27,7 @@ public class PlayerData : ScriptableObject
 
     [SerializeField] private float _radDeplete = 0; // The percentage amount by which the radiation meter depletes over time
     public float radDeplete { get { return _radDeplete; } }
+
+    [SerializeField] private float _radThreshold = 0; // When radiation reaches over this percentage amount, take damage
+    public float radThreshold { get { return _radThreshold; } }
 }

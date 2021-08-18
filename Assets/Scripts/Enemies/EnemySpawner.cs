@@ -66,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
             currentEnemyPos = SpawnEnemy(currentEnemyPos);
             yield return new WaitForSeconds(spawnCooldown);
 
-            spawnCooldown = Mathf.Max(spawnCooldown - data.spawnRateDecrease, data.spawnRateRange.y); // consider having the spawn cooldown be dictated by an array of fixed values too
+            spawnCooldown = Mathf.Max(spawnCooldown - data.spawnRateDecrease, data.spawnRateRange.y);
             difficultyMultiplier = Mathf.Min(difficultyMultiplier + data.difficultyMultiplierIncrease, data.maxDifficultyMultiplier);
         }
     }
@@ -75,8 +75,9 @@ public class EnemySpawner : MonoBehaviour
     {
         deaths++;
 
-        if (poolsAvailable < enemyPrefabs.Length && deaths >= data.baseDeathsThreshold * difficultyMultiplier)
+        if (poolsAvailable < enemyPrefabs.Length && deaths >= data.deathThresholds[poolsAvailable - 1])
         {
+            deaths = 0;
             poolsAvailable++;
 
             spawnChanceTotal = 0;
