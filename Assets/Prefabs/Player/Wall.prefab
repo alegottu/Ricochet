@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4230657310850462695}
   - component: {fileID: 8136566318783174273}
   - component: {fileID: 6344385278883928677}
+  - component: {fileID: 6935860144605105260}
   m_Layer: 9
   m_Name: Wall
   m_TagString: Untagged
@@ -41,9 +42,9 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3645510539645533508}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -160,6 +161,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be2d048ebee47347a74c5cccd4668ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 6935860144605105260}
   data: {fileID: 11400000, guid: 349f67005e82a4246a185f928eef3039, type: 2}
   edge: {fileID: 8136566318783174273}
   render: {fileID: 4230657310850462695}
+--- !u!95 &6935860144605105260
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645510539645533508}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96b46320eff2de643be9ece1fec3aa11, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

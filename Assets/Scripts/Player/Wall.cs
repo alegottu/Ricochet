@@ -54,6 +54,6 @@ public class Wall : TemporaryObject
             yield return new WaitForEndOfFrame();
         }
 
-        Destroy(gameObject);
+        Destroy();
     }
 }
