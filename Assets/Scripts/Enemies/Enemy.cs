@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public static event Action<int> OnEnemyKilled;
     public static event Action OnEnemyDestroyed; // Destroyed, not killed
 
     [SerializeField] protected Rigidbody2D rb = null;
@@ -18,6 +19,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnDeathEventHandler()
     {
+        OnEnemyKilled?.Invoke(data.pointValue / health.maxHealth);
         Destroy(this);
     }
 

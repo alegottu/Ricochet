@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class TimedParent : MonoBehaviour
 {
     [SerializeField] private int time = 1;
 
