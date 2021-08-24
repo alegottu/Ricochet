@@ -3,6 +3,9 @@
 [CreateAssetMenu(fileName = "New Spawner Data", menuName = "Spawner Data", order = 3)]
 public class SpawnerData : ScriptableObject
 {
+    [SerializeField] private GameObject[] _enemyPrefabs = null;
+    public GameObject[] enemyPrefabs { get { return _enemyPrefabs; } }
+
     [SerializeField] private int[] _deathThresholds = null; // The amount of enemy deaths required for the difficulty to change
     public int[] deathThresholds { get { return _deathThresholds; } }
 

@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : Spawner
 {
-    [SerializeField] private GameObject[] enemyPrefabs = null;
     [SerializeField] private Health player = null;
     [SerializeField] private SpawnerData data = null;
 
@@ -11,11 +12,11 @@ public class EnemySpawner : MonoBehaviour
     private float spawnCooldown;
     private int deaths = 0;
     private int poolsAvailable = 1;
-    private int spawnChanceTotal;
 
     private void Awake()
     {
         spawnCooldown = data.spawnRateRange.x;
+        spawnChanceTotal = 0;
         StartCoroutine(SpawnEnemies());
     }
 
@@ -25,32 +26,21 @@ public class EnemySpawner : MonoBehaviour
         {
             return 0;
         }
-
-        int ticket = Random.Range(0, spawnChanceTotal);
-        Vector2 winningRange = Vector2.zero;
-
-        for (int i = 0; i < poolsAvailable; i++)
+        else
         {
-            winningRange = new Vector2(winningRange.y, winningRange.y + data.spawnChances[i]);
-
-            if (ticket >= winningRange.x && ticket <= winningRange.y)
-            {
-                return i;
-            }
+            return GetSpawn(new ArraySegment<int>(data.spawnChances, 0, poolsAvailable).ToArray());
         }
-
-        return 0;
     }
 
     private Vector3 SpawnEnemy(Vector3 previousEnemyPos)
     {
-        Vector3 position = transform.position + Vector3.right * Random.Range(-data.spawningRange, data.spawningRange);
+        Vector3 position = transform.position + Vector3.right * UnityEngine.Random.Range(-data.spawningRange, data.spawningRange);
         while (position.x >= previousEnemyPos.x - data.spawnBufferSize && position.x <= previousEnemyPos.x + data.spawnBufferSize)
         {
-            position = transform.position + Vector3.right * Random.Range(-data.spawningRange, data.spawningRange);
+            position = transform.position + Vector3.right * UnityEngine.Random.Range(-data.spawningRange, data.spawningRange);
         }
 
-        GameObject currentEnemy = Instantiate(enemyPrefabs[GetEnemy()], position, Quaternion.identity);
+        GameObject currentEnemy = Instantiate(data.enemyPrefabs[GetEnemy()], position, Quaternion.identity);
         currentEnemy.GetComponent<Enemy>().SetUp(player, difficultyMultiplier);
         currentEnemy.GetComponent<Health>().OnDeath += OnEnemyDeathEventHandler;
         
@@ -75,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
     {
         deaths++;
 
-        if (poolsAvailable < enemyPrefabs.Length && deaths >= data.deathThresholds[poolsAvailable - 1])
+        if (poolsAvailable < data.enemyPrefabs.Length && deaths >= data.deathThresholds[poolsAvailable - 1])
         {
             deaths = 0;
             poolsAvailable++;

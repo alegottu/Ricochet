@@ -3,8 +3,8 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public static event Action<int> OnEnemyKilled;
-    public static event Action OnEnemyDestroyed; // Destroyed, not killed
+    public static event Action<Enemy> OnEnemyKilled; 
+    public static event Action OnEnemyDestroyed; // Destroyed, not killed by the player
 
     [SerializeField] protected Rigidbody2D rb = null;
     [SerializeField] protected Health health = null;
@@ -19,7 +19,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnDeathEventHandler()
     {
-        OnEnemyKilled?.Invoke(data.pointValue / health.maxHealth);
+        OnEnemyKilled?.Invoke(this);
         Destroy(this);
     }
 
@@ -47,6 +47,11 @@ public abstract class Enemy : MonoBehaviour
     public void Reflect()
     {
         rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
+    }
+
+    public int GetPoints()
+    {
+        return data.pointValue / health.maxHealth);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
