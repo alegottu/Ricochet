@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public event Action<bool> OnChargeGained;
     public event Action OnRadiationDamage;
+    public event Action<float> OnRadiationGain;
 
     [SerializeField] private Health health = null;
     [SerializeField] private PlayerData data = null;
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject barrierPrefab = null;
 
     private int chargesLeft = 0;
-    private float radPercent = 0; // Each time the player draws a wall, it fills part of this meter, based on the size of the wall. If it overflows, they take damage.
+    private float radiationPercent = 0; // Each time the player draws a wall, it fills part of this meter, based on the size of the wall. If it overflows, they take damage.
     private GameObject bullet = null;
     private Wall wall = null;
 
@@ -65,13 +66,14 @@ public class Player : MonoBehaviour
 
     private void FinishWall()
     {
-        radPercent += wall.GetPercent();
+        radiationPercent += wall.GetPercent();
+        OnRadiationGain?.Invoke(radiationPercent);
 
-        if (radPercent > data.radThreshold)
+        if (radiationPercent > data.radThreshold)
         {
             health.TakeDamage(1);
             OnRadiationDamage?.Invoke();
-            radPercent = 0;
+            radiationPercent = 0;
         }
 
         wall.StartTimer();
@@ -127,7 +129,7 @@ public class Player : MonoBehaviour
             DrawWall();
         }
 
-        radPercent = Mathf.Max(0, radPercent - data.radDeplete * Time.deltaTime);
+        radiationPercent = Mathf.Max(0, radiationPercent - data.radDeplete * Time.deltaTime);
     }
 
     private void OnDisable()

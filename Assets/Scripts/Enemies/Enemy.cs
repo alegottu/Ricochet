@@ -51,7 +51,7 @@ public abstract class Enemy : MonoBehaviour
 
     public int GetPoints()
     {
-        return data.pointValue / health.maxHealth);
+        return data.pointValue / health.maxHealth;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

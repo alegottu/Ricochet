@@ -18,13 +18,13 @@ public class Score : MonoBehaviour
         Enemy.OnEnemyKilled += AddPoints;
     }
 
-    private void AddPoints(int points) 
+    private void AddPoints(Enemy enemy) 
     {
         comboMultipiler++;
         points *= comboMultipiler;
-        this.points += points; 
+        points += enemy.GetPoints(); 
 
-        scoreText.text = this.points.ToString();
+        scoreText.text = points.ToString();
         newPointsText.text = "+" + points.ToString();
         comboText.text = comboMultipiler.ToString();
  

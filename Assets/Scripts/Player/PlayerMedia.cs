@@ -11,8 +11,14 @@ public class PlayerMedia : MediaController<Player>
 
         host.OnChargeGained += OnChargeGainedEventHandler;
         host.OnRadiationDamage += OnRadiationDamageEventHandler;
+        host.OnRadiationGain += OnRadiationGainEventHandler;
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         Enemy.OnEnemyDestroyed += OnEnemyDestroyedEventHandler;
+    }
+
+    private void OnRadiationGainEventHandler(float radiationPercent)
+    {
+        // fill meter
     }
 
     private void OnChargeGainedEventHandler(bool gain)
