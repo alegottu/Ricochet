@@ -23,7 +23,7 @@ public abstract class Enemy : MonoBehaviour
         Destroy(this);
     }
 
-    public virtual void SetUp(Health player, float speedMultiplier)
+    public virtual void Setup(Health player, float speedMultiplier)
     {
         this.player = player;
 

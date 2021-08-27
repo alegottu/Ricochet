@@ -5,9 +5,9 @@ public class Tank : Enemy
 {
     [SerializeField] private int pathCycles = 0; // The amount of times the snaking pattern the tank uses to move is repeated
 
-    public override void SetUp(Health player, float speedMultiplier)
+    public override void Setup(Health player, float speedMultiplier)
     {
-        base.SetUp(player, speedMultiplier);
+        base.Setup(player, speedMultiplier);
         StartCoroutine(Snake());
     }
 

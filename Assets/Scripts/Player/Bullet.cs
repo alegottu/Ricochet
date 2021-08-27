@@ -6,12 +6,12 @@ public class Bullet : MonoBehaviour
 {
     public static event Action OnBulletDestroyed;
 
-    [SerializeField] private PlayerData data = null;
-    [SerializeField] private Rigidbody2D rb = null;
+    [SerializeField] protected PlayerData data = null;
+    [SerializeField] protected Rigidbody2D rb = null;
 
     private Health player = null;
 
-    private void Awake()
+    private void OnEnable()
     {
         Wall.OnWallAttack += OnWallAttackEventHandler;
     }
@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
         rb.velocity = originalSpeed;
     }
 
-    public void SetUp(Health player)
+    public void Setup(Health player)
     {
         transform.eulerAngles = Vector3.forward * UnityEngine.Random.Range(data.bulletAngleRange.x, data.bulletAngleRange.y);
         rb.velocity = transform.right * data.bulletSpeed;
@@ -44,11 +44,14 @@ public class Bullet : MonoBehaviour
         rb.velocity = rb.velocity.normalized * data.bulletSpeed; // To ensure the bullet never slows down off of odd collisions
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         OnBulletDestroyed?.Invoke();
         player.TakeDamage(1);
+    }
 
+    private void OnDisable()
+    {
         Wall.OnWallAttack -= OnWallAttackEventHandler;
     }
 }

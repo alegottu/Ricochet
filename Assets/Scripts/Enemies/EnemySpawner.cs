@@ -41,7 +41,7 @@ public class EnemySpawner : Spawner
         }
 
         GameObject currentEnemy = Instantiate(data.enemyPrefabs[GetEnemy()], position, Quaternion.identity);
-        currentEnemy.GetComponent<Enemy>().SetUp(player, difficultyMultiplier);
+        currentEnemy.GetComponent<Enemy>().Setup(player, difficultyMultiplier);
         currentEnemy.GetComponent<Health>().OnDeath += OnEnemyDeathEventHandler;
         
         return position;

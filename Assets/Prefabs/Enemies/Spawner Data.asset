@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae0bc7904f93da4bbd6a874db683495, type: 3}
   m_Name: Spawner Data
   m_EditorClassIdentifier: 
+  _enemyPrefabs:
+  - {fileID: 7159130864169193474, guid: fed405d80d8bfe84f9a94184a1f629b2, type: 3}
+  - {fileID: 6074902304123217572, guid: 434ff89b4af7a9647ad95fab515fd4a0, type: 3}
+  - {fileID: 5757639921558065697, guid: 5234ea060e5f79b4eb7aa1ac0a5ec55f, type: 3}
   _deathThresholds: 0300000006000000
   _spawningRange: 12
   _spawnBufferSize: 1

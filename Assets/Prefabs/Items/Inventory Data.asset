@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefabs:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3605664754341718172, guid: 602f16f279501a6408dde9c50124117a, type: 3}
   _spawnChances: 3200000032000000

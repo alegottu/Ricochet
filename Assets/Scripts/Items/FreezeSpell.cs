@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FreezeTime : Item
+public class FreezeSpell : Item
 {
     [SerializeField] private LayerMask enemyLayer = new LayerMask();
 

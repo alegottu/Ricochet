@@ -15,7 +15,7 @@ MonoBehaviour:
   _specialCharges: 2
   _rechargeTime: 15
   _bulletSpeed: 15
-  _bulletAngleRange: {x: 45, y: 90}
+  _bulletAngleRange: {x: 75, y: 105}
   _maxWallLifetime: 5
   _wallAttackTime: 1
   _wallAttackSpeed: 1080

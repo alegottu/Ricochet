@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static event Action OnDamageTaken;
     public event Action<bool> OnChargeGained;
     public event Action OnRadiationDamage;
     public event Action<float> OnRadiationGain;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         input.onSpecial += ActivateSpecial;
 
         health.OnDeath += OnDeathEventHandler;
+        health.OnDamageTaken += OnDamageTaken.Invoke; 
 
         chargesLeft = data.specialCharges;
         StartCoroutine(Recharge());
@@ -35,7 +37,7 @@ public class Player : MonoBehaviour
     private void Shoot()
     {
         bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().SetUp(health);
+        bullet.GetComponent<Bullet>().Setup(health);
     }
 
     private void FixedUpdate()
@@ -82,7 +84,7 @@ public class Player : MonoBehaviour
     // A special action where the bounds of the stage bounce the ball for a limited amount of time
     private void CreateBarrier()
     {
-        Instantiate(barrierPrefab);
+        Instantiate(barrierPrefab).GetComponent<Barrier>().Setup(bullet.transform);
     }
 
     private void ActivateSpecial()

@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 7867822611432275086}
   lifetime: 10
+  ghostBulletPrefab: {fileID: 197862518689671108, guid: 8add2ce9f42ac8446a55e552960507e1,
+    type: 3}
 --- !u!95 &7867822611432275086
 Animator:
   serializedVersion: 3

@@ -16,6 +16,14 @@ public class Score : MonoBehaviour
     private void OnEnable()
     {
         Enemy.OnEnemyKilled += AddPoints;
+        Player.OnDamageTaken += OnPlayerDamageEventHandler;
+    }
+
+    private void OnPlayerDamageEventHandler()
+    {
+        comboMultipiler = 0;
+        StopAllCoroutines();
+        StartCoroutine(TrackCombo());
     }
 
     private void AddPoints(Enemy enemy) 
@@ -42,5 +50,6 @@ public class Score : MonoBehaviour
     private void OnDisable()
     {
         Enemy.OnEnemyKilled -= AddPoints;
+        Player.OnDamageTaken -= OnPlayerDamageEventHandler;
     }
 }
