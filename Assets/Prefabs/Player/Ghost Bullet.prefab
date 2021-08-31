@@ -96,10 +96,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 3609910516732862608, guid: 0af3a305d4885e84eb9f8b4ce06c7a4c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4340968417908309975, guid: 0af3a305d4885e84eb9f8b4ce06c7a4c,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8588546294380925576, guid: 0af3a305d4885e84eb9f8b4ce06c7a4c, type: 3}
