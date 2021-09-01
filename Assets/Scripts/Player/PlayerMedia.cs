@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using UnityEngine.UI;
+using UnityEngine;
 
 public class PlayerMedia : MediaController<Player>
 {
+    [SerializeField] private PlayerData data = null; // Potentially change to just a single float for performance, only used for radThreshold
     [SerializeField] private Animator specialMeter = null;
     [SerializeField] private Animator healthbar = null;
+    [SerializeField] private Slider radiationMeter = null; 
 
     protected override void OnEnable()
     {
@@ -18,7 +21,7 @@ public class PlayerMedia : MediaController<Player>
 
     private void OnRadiationGainEventHandler(float radiationPercent)
     {
-        // fill meter
+        radiationMeter.value = radiationPercent / data.radThreshold;
     }
 
     private void OnChargeGainedEventHandler(bool gain)
