@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 
-public class GhostBullet : Bullet
+public class GhostBullet : Projectile
 {
     public void Setup(int angle)
     {
-        transform.eulerAngles = Vector3.forward * angle;
-        rb.velocity = transform.right * data.bulletSpeed;
-    }
-
-    protected override void OnDestroy()
-    {
-        return;
+        SetVelocity(angle);
     }
 }

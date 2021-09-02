@@ -1,23 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2302993697597090273
+--- !u!114 &7353116450517563617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3605664754341718172}
+  m_GameObject: {fileID: 6118937703388089914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385e28249e76fe3449ce2f71867d8af9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b9da2add035a314888502b8e66ef1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 187740779577291457}
+  anim: {fileID: 7240042901996115047}
   lifetime: 5
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 256
---- !u!1001 &2215782456707815226
+  rechargeDecreaseAmount: 1
+--- !u!1001 &8656828819019313564
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -35,25 +33,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 26912931910330867, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.5990566
-      objectReference: {fileID: 0}
-    - target: {fileID: 26912931910330867, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.97259
-      objectReference: {fileID: 0}
-    - target: {fileID: 26912931910330867, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3227372953619644326, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
         type: 3}
       propertyPath: m_Name
-      value: Freeze Spell
+      value: Metronome
       objectReference: {fileID: 0}
     - target: {fileID: 6006361061635418893, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
         type: 3}
@@ -122,15 +105,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b2ca0c456cb3b8489c5056332f5a5ee, type: 3}
---- !u!1 &3605664754341718172 stripped
+--- !u!1 &6118937703388089914 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3227372953619644326, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
-  m_PrefabInstance: {fileID: 2215782456707815226}
+  m_PrefabInstance: {fileID: 8656828819019313564}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &187740779577291457 stripped
+--- !u!95 &7240042901996115047 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2043217343044363771, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
-  m_PrefabInstance: {fileID: 2215782456707815226}
+  m_PrefabInstance: {fileID: 8656828819019313564}
   m_PrefabAsset: {fileID: 0}

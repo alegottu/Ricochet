@@ -4,6 +4,7 @@ using System;
 public class Health : MonoBehaviour
 {
     public event Action OnDamageTaken;
+    public event Action OnHeal;
     public event Action OnDeath;
 
     private int _health = 1;
@@ -31,6 +32,7 @@ public class Health : MonoBehaviour
     public void Heal(int amount)
     {
         _health = Mathf.Min(_maxHealth, _health + amount);
+        OnHeal?.Invoke();
     }
 
     public void Die()

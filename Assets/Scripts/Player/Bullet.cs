@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Projectile
 {
     public static event Action OnBulletDestroyed;
 
-    [SerializeField] protected PlayerData data = null;
-    [SerializeField] protected Rigidbody2D rb = null;
-
-    private Health player = null;
+    private void Awake()
+    {
+        SetVelocity(UnityEngine.Random.Range(data.bulletAngleRange.x, data.bulletAngleRange.y));
+    }
 
     private void OnEnable()
     {
@@ -31,23 +31,9 @@ public class Bullet : MonoBehaviour
         rb.velocity = originalSpeed;
     }
 
-    public void Setup(Health player)
-    {
-        transform.eulerAngles = Vector3.forward * UnityEngine.Random.Range(data.bulletAngleRange.x, data.bulletAngleRange.y);
-        rb.velocity = transform.right * data.bulletSpeed;
-
-        this.player = player;
-    }
-
-    private void OnCollisionExit2D(Collision2D _)
-    {
-        rb.velocity = rb.velocity.normalized * data.bulletSpeed; // To ensure the bullet never slows down off of odd collisions
-    }
-
     protected virtual void OnDestroy()
     {
         OnBulletDestroyed?.Invoke();
-        player.TakeDamage(1);
     }
 
     private void OnDisable()

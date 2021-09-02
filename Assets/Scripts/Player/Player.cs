@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -12,16 +13,23 @@ public class Player : MonoBehaviour
     [SerializeField] private Health health = null;
     [SerializeField] private PlayerData data = null;
     [SerializeField] private PlayerInput input = null;
-    [SerializeField] private GameObject bulletPrefab = null;
-    [SerializeField] private GameObject wallPrefab = null;
-    [SerializeField] private GameObject barrierPrefab = null;
 
     private int chargesLeft = 0;
     private float radiationPercent = 0; // Each time the player draws a wall, it fills part of this meter, based on the size of the wall. If it overflows, they take damage.
+    private float rechargeDecrease = 0;
     private GameObject bullet = null;
+    private List<GameObject> extraBullets = new List<GameObject>();
     private Wall wall = null;
 
     private void Awake()
+    {
+        bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+
+        chargesLeft = data.specialCharges;
+        StartCoroutine(Recharge());
+    }
+
+    private void OnEnable()
     {
         input.onPenDown += CreateWall;
         input.onPenUp += FinishWall;
@@ -30,22 +38,16 @@ public class Player : MonoBehaviour
         health.OnDeath += OnDeathEventHandler;
         health.OnDamageTaken += OnDamageTaken.Invoke; 
 
-        chargesLeft = data.specialCharges;
-        StartCoroutine(Recharge());
+        Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
+        ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyed;
     }
 
-    private void Shoot()
+    public void AddBullet()
     {
-        bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().Setup(health);
-    }
-
-    private void FixedUpdate()
-    {
-        if (bullet == null)
-        {
-            Shoot();
-        }
+        extraBullets.Add(
+            Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity)
+        );
+        ExtraBullet.IncreaseBulletCount();
     }
 
     private void CreateWall()
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
             Destroy(wall.gameObject);
         }
 
-        wall = Instantiate(wallPrefab).GetComponent<Wall>();
+        wall = Instantiate(data.wallPrefab).GetComponent<Wall>();
         Vector2 start = input.GetMousePos();
         wall.SetPositions(start, start);
     }
@@ -84,7 +86,7 @@ public class Player : MonoBehaviour
     // A special action where the bounds of the stage bounce the ball for a limited amount of time
     private void CreateBarrier()
     {
-        Instantiate(barrierPrefab).GetComponent<Barrier>().Setup(bullet.transform);
+        Instantiate(data.barrierPrefab).GetComponent<Barrier>().Setup(bullet.transform);
     }
 
     private void ActivateSpecial()
@@ -105,11 +107,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SetRechargeDecrease(float rechargeDecrease)
+    {
+        this.rechargeDecrease = rechargeDecrease;
+    }
+
     private IEnumerator Recharge()
     {
         while (true)
         {
-            yield return new WaitForSeconds(data.rechargeTime);
+            yield return new WaitForSeconds(data.rechargeTime - rechargeDecrease);
 
             if (chargesLeft < data.specialCharges)
             {
@@ -122,6 +129,17 @@ public class Player : MonoBehaviour
     private void OnDeathEventHandler()
     {
         Destroy(this);
+    }
+
+    private void OnBulletDestroyedEventHandler()
+    {
+        health.TakeDamage(1);
+        bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+    }
+
+    private void OnExtraBulletDestroyed (int index)
+    {
+        extraBullets[index] = Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
     }
 
     private void Update()

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class Heart : PlayerEffect
+public class Ammo : PlayerEffect
 {
     public override void CastEffect(Player player)
     {
-        player.GetComponent<Health>().Heal(1);
+        player.AddBullet();
     }
 }

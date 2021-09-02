@@ -2086,6 +2086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3b2bcdb8a366dff4eaa1d31502ec2bbd, type: 2}
+  player: {fileID: 0}
 --- !u!4 &1647970818
 Transform:
   m_ObjectHideFlags: 0

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
-public class Metronome : Item
+public class Metronome : PlayerEffect
 {
-    protected override void CastEffect()
-    {
+    [SerializeField] private float rechargeDecreaseAmount = 0;
 
+    public override void CastEffect(Player player)
+    {
+        player.SetRechargeDecrease(rechargeDecreaseAmount);
     }
 }

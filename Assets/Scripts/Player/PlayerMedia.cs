@@ -17,6 +17,7 @@ public class PlayerMedia : MediaController<Player>
         host.OnRadiationGain += OnRadiationGainEventHandler;
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         Enemy.OnEnemyDestroyed += OnEnemyDestroyedEventHandler;
+        health.OnHeal += OnHealEventHandler;
     }
 
     private void OnRadiationGainEventHandler(float radiationPercent)
@@ -61,6 +62,11 @@ public class PlayerMedia : MediaController<Player>
         anim.SetTrigger("Damage");
     }
 
+    private void OnHealEventHandler()
+    {
+        healthbar.SetTrigger("Heal");
+    }
+
     protected override void OnDisable()
     {
         base.OnDisable();
@@ -69,5 +75,6 @@ public class PlayerMedia : MediaController<Player>
         host.OnRadiationDamage -= OnRadiationDamageEventHandler;
         Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;
         Enemy.OnEnemyDestroyed -= OnEnemyDestroyedEventHandler;
+        health.OnHeal -= OnHealEventHandler;
     }
 }

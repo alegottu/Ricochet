@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a873e6e77d31154988107e5e7ee229e, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 3609910516732862608, guid: 0af3a305d4885e84eb9f8b4ce06c7a4c,
+    type: 3}
+  _extraBulletPrefab: {fileID: 3591812303323757673, guid: b1187bdf1bf16c34db0457cdfbacaab4,
+    type: 3}
+  _wallPrefab: {fileID: 3645510539645533508, guid: 33de2835fc2797a428b2a107d1962e56,
+    type: 3}
+  _barrierPrefab: {fileID: 1777384902712466689, guid: c141976a8f26f31419668e42c1936dc6,
+    type: 3}
   _specialCharges: 2
   _rechargeTime: 15
   _bulletSpeed: 15
