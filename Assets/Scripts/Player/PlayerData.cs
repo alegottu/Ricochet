@@ -37,9 +37,9 @@ public class PlayerData : ScriptableObject
     [SerializeField] private float _wallAttackSpeed = 0;
     public float wallAttackSpeed { get { return _wallAttackSpeed; } }
 
-    [SerializeField] private float _radDeplete = 0; // The percentage amount by which the radiation meter depletes over time
-    public float radDeplete { get { return _radDeplete; } }
+    [SerializeField] private float _photonRefill = 0; // The percentage amount by which the radiation meter refills over time
+    public float photonRefill { get { return _photonRefill; } }
 
-    [SerializeField] private float _radThreshold = 0; // When radiation reaches over this percentage amount, take damage
-    public float radThreshold { get { return _radThreshold; } }
+    [SerializeField] private float _photonMax = 0; // The photon gauge's max percentage value
+    public float photonMax { get { return _photonMax; } }
 }

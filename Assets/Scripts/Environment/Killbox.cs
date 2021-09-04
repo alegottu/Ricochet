@@ -8,9 +8,9 @@ public class Killbox : MonoBehaviour
         {
             enemy.Destroy();
         }
-        if (collider.TryGetComponent(out Bullet bullet))
+        if (collider.TryGetComponent(out Projectile projectile))
         {
-            Destroy(bullet.gameObject);
+            Destroy(projectile.gameObject);
         }
     }
 }

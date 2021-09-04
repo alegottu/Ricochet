@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -7,22 +6,22 @@ public class Player : MonoBehaviour
 {
     public static event Action OnDamageTaken;
     public event Action<bool> OnChargeGained;
-    public event Action OnRadiationDamage;
-    public event Action<float> OnRadiationGain;
+    public event Action OnOverheatDamage;
+    public event Action<float> OnPhotonLoss;
 
     [SerializeField] private Health health = null;
     [SerializeField] private PlayerData data = null;
     [SerializeField] private PlayerInput input = null;
 
+    private float photonsPercent = 1; // Each time the player draws a wall, it takes away part of this meter, based on the size of the wall. If it runs out, they take damage.
     private int chargesLeft = 0;
-    private float radiationPercent = 0; // Each time the player draws a wall, it fills part of this meter, based on the size of the wall. If it overflows, they take damage.
     private float rechargeDecrease = 0;
     private GameObject bullet = null;
-    private List<GameObject> extraBullets = new List<GameObject>();
     private Wall wall = null;
 
     private void Awake()
     {
+        photonsPercent = data.photonMax;
         bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
 
         chargesLeft = data.specialCharges;
@@ -39,15 +38,12 @@ public class Player : MonoBehaviour
         health.OnDamageTaken += OnDamageTaken.Invoke; 
 
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
-        ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyed;
+        ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyedEventHandler;
     }
 
-    public void AddBullet()
+    public void AddExtraBullet()
     {
-        extraBullets.Add(
-            Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity)
-        );
-        ExtraBullet.IncreaseBulletCount();
+        Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
     }
 
     private void CreateWall()
@@ -70,14 +66,13 @@ public class Player : MonoBehaviour
 
     private void FinishWall()
     {
-        radiationPercent += wall.GetPercent();
-        OnRadiationGain?.Invoke(radiationPercent);
+        photonsPercent -= wall.GetPercent();
 
-        if (radiationPercent > data.radThreshold)
+        if (photonsPercent <= 0)
         {
             health.TakeDamage(1);
-            OnRadiationDamage?.Invoke();
-            radiationPercent = 0;
+            OnOverheatDamage?.Invoke();
+            photonsPercent = data.photonMax;
         }
 
         wall.StartTimer();
@@ -137,9 +132,9 @@ public class Player : MonoBehaviour
         bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
     }
 
-    private void OnExtraBulletDestroyed (int index)
+    private void OnExtraBulletDestroyedEventHandler()
     {
-        extraBullets[index] = Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
+        Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
     }
 
     private void Update()
@@ -149,7 +144,8 @@ public class Player : MonoBehaviour
             DrawWall();
         }
 
-        radiationPercent = Mathf.Max(0, radiationPercent - data.radDeplete * Time.deltaTime);
+        photonsPercent = Mathf.Min(data.photonMax, photonsPercent + data.photonRefill * Time.deltaTime);
+        OnPhotonLoss?.Invoke(photonsPercent);
     }
 
     private void OnDisable()
@@ -157,5 +153,11 @@ public class Player : MonoBehaviour
         input.onPenDown -= CreateWall;
         input.onPenUp -= FinishWall;
         input.onSpecial -= ActivateSpecial;
+
+        health.OnDeath -= OnDeathEventHandler;
+        health.OnDamageTaken -= OnDamageTaken.Invoke; 
+
+        Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;
+        ExtraBullet.OnExtraBulletDestroyed -= OnExtraBulletDestroyedEventHandler;
     }
 }

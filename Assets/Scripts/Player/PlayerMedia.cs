@@ -6,23 +6,23 @@ public class PlayerMedia : MediaController<Player>
     [SerializeField] private PlayerData data = null; // Potentially change to just a single float for performance, only used for radThreshold
     [SerializeField] private Animator specialMeter = null;
     [SerializeField] private Animator healthbar = null;
-    [SerializeField] private Slider radiationMeter = null; 
+    [SerializeField] private Slider photonMeter = null; 
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
         host.OnChargeGained += OnChargeGainedEventHandler;
-        host.OnRadiationDamage += OnRadiationDamageEventHandler;
-        host.OnRadiationGain += OnRadiationGainEventHandler;
+        host.OnOverheatDamage += OnOverheatDamageEventHandler;
+        host.OnPhotonLoss += OnPhotonLossEventHandler;
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         Enemy.OnEnemyDestroyed += OnEnemyDestroyedEventHandler;
         health.OnHeal += OnHealEventHandler;
     }
 
-    private void OnRadiationGainEventHandler(float radiationPercent)
+    private void OnPhotonLossEventHandler(float photonsPercent)
     {
-        radiationMeter.value = radiationPercent / data.radThreshold;
+        photonMeter.value = photonsPercent / data.photonMax;
     }
 
     private void OnChargeGainedEventHandler(bool gain)
@@ -47,9 +47,9 @@ public class PlayerMedia : MediaController<Player>
         healthbar.SetTrigger("Damage");
     }
 
-    private void OnRadiationDamageEventHandler()
+    private void OnOverheatDamageEventHandler()
     {
-        anim.SetTrigger("Radiation");
+        anim.SetTrigger("Overheat");
     }
 
     private void OnBulletDestroyedEventHandler()
@@ -72,7 +72,8 @@ public class PlayerMedia : MediaController<Player>
         base.OnDisable();
 
         host.OnChargeGained -= OnChargeGainedEventHandler;
-        host.OnRadiationDamage -= OnRadiationDamageEventHandler;
+        host.OnOverheatDamage -= OnOverheatDamageEventHandler;
+        host.OnPhotonLoss -= OnPhotonLossEventHandler;
         Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;
         Enemy.OnEnemyDestroyed -= OnEnemyDestroyedEventHandler;
         health.OnHeal -= OnHealEventHandler;

@@ -27,5 +27,5 @@ MonoBehaviour:
   _maxWallLifetime: 5
   _wallAttackTime: 1
   _wallAttackSpeed: 1080
-  _radDeplete: 0.1
-  _radThreshold: 0.5
+  _photonRefill: 0.1
+  _photonMax: 0.66

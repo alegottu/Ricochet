@@ -337,7 +337,7 @@ MonoBehaviour:
   newPointsText: {fileID: 917485562}
   comboText: {fileID: 1259261059}
   anim: {fileID: 61048510}
-  comboFreezeTime: 7
+  comboFreezeTime: 3
 --- !u!1 &75407529
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,8 +489,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25, y: 0}
-  m_SizeDelta: {x: -50, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &438269784
 MonoBehaviour:
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -942,6 +942,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &741581870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2842248990077862012, guid: 66fd6c2a2795a1141819d3c1af48c4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 2065638914}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b145ad869ecfd1f4abba8f4fac8d0d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &824557670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,7 +2005,7 @@ GameObject:
   - component: {fileID: 1517439501}
   - component: {fileID: 1517439500}
   m_Layer: 5
-  m_Name: Radiation Meter
+  m_Name: Photon Meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2038,7 +2050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 86d213588bcea8747b3cdad341d83168, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4a7f0e3e3c93f4f469a321c8cad9221e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2086,7 +2098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3b2bcdb8a366dff4eaa1d31502ec2bbd, type: 2}
-  player: {fileID: 0}
+  player: {fileID: 741581870}
 --- !u!4 &1647970818
 Transform:
   m_ObjectHideFlags: 0
@@ -2760,6 +2772,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 349f67005e82a4246a185f928eef3039,
         type: 2}
+    - target: {fileID: 599576376, guid: 66fd6c2a2795a1141819d3c1af48c4ea, type: 3}
+      propertyPath: photonMeter
+      value: 
+      objectReference: {fileID: 438269784}
     - target: {fileID: 459991043911271107, guid: 66fd6c2a2795a1141819d3c1af48c4ea,
         type: 3}
       propertyPath: mainCam
@@ -3016,7 +3032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: -125}
+  m_AnchoredPosition: {x: -100, y: -150}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &6621895059549651517

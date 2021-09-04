@@ -17,5 +17,6 @@ public abstract class PlayerEffect : TemporaryObject
     private void OnTriggerEnter2D(Collider2D collider)
     {        
         OnPlayerStatChange?.Invoke(this);
+        Destroy(gameObject);
     }
 }
