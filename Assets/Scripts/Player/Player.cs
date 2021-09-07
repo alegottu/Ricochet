@@ -5,11 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static event Action OnDamageTaken;
-    public event Action<bool> OnChargeGained;
-    public event Action OnOverheatDamage;
-    public event Action<float> OnPhotonLoss;
 
     [SerializeField] private Health health = null;
+    [SerializeField] private CameraController cam = null;
+    [SerializeField] private PlayerMedia media = null;
     [SerializeField] private PlayerData data = null;
     [SerializeField] private PlayerInput input = null;
 
@@ -22,7 +21,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         photonsPercent = data.photonMax;
-        bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+        Shoot();
 
         chargesLeft = data.specialCharges;
         StartCoroutine(Recharge());
@@ -39,12 +38,7 @@ public class Player : MonoBehaviour
 
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyedEventHandler;
-    }
-
-    public void AddExtraBullet()
-    {
-        Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
-    }
+    }    
 
     private void CreateWall()
     {
@@ -71,7 +65,7 @@ public class Player : MonoBehaviour
         if (photonsPercent <= 0)
         {
             health.TakeDamage(1);
-            OnOverheatDamage?.Invoke();
+            media.PlayWarning("Overheat");
             photonsPercent = data.photonMax;
         }
 
@@ -97,7 +91,7 @@ public class Player : MonoBehaviour
                 wall.Attack();
             }
 
-            OnChargeGained?.Invoke(false);
+            media.UpdateSpecialMeter("Deplete");
             chargesLeft--;
         }
     }
@@ -115,7 +109,7 @@ public class Player : MonoBehaviour
 
             if (chargesLeft < data.specialCharges)
             {
-                OnChargeGained?.Invoke(true);
+                media.UpdateSpecialMeter("Fill");
                 chargesLeft++;
             }
         }
@@ -126,15 +120,26 @@ public class Player : MonoBehaviour
         Destroy(this);
     }
 
+    private void Shoot()
+    {
+        cam.StartKick(new Vector2(0, -1), 2, 0.75f);
+        bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+    }
+
+    public void ShootExtraBullet()
+    {
+        Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
+    }
+
     private void OnBulletDestroyedEventHandler()
     {
         health.TakeDamage(1);
-        bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+        Shoot();
     }
 
     private void OnExtraBulletDestroyedEventHandler()
     {
-        Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
+        ShootExtraBullet();
     }
 
     private void Update()
@@ -145,7 +150,7 @@ public class Player : MonoBehaviour
         }
 
         photonsPercent = Mathf.Min(data.photonMax, photonsPercent + data.photonRefill * Time.deltaTime);
-        OnPhotonLoss?.Invoke(photonsPercent);
+        media.UpdatePhotonMeter(photonsPercent);
     }
 
     private void OnDisable()

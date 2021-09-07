@@ -12,29 +12,17 @@ public class PlayerMedia : MediaController<Player>
     {
         base.OnEnable();
 
-        host.OnChargeGained += OnChargeGainedEventHandler;
-        host.OnOverheatDamage += OnOverheatDamageEventHandler;
-        host.OnPhotonLoss += OnPhotonLossEventHandler;
-        Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
-        Enemy.OnEnemyDestroyed += OnEnemyDestroyedEventHandler;
         health.OnHeal += OnHealEventHandler;
     }
 
-    private void OnPhotonLossEventHandler(float photonsPercent)
+    public void UpdatePhotonMeter(float photonsPercent)
     {
         photonMeter.value = photonsPercent / data.photonMax;
     }
 
-    private void OnChargeGainedEventHandler(bool gain)
+    public void UpdateSpecialMeter(string trigger)
     {
-        if (gain)
-        {
-            specialMeter.SetTrigger("Fill");
-        }
-        else
-        {
-            specialMeter.SetTrigger("Deplete");
-        }
+        specialMeter.SetTrigger(trigger);
     }
 
     protected override void OnDeathEventHandler()
@@ -47,19 +35,9 @@ public class PlayerMedia : MediaController<Player>
         healthbar.SetTrigger("Damage");
     }
 
-    private void OnOverheatDamageEventHandler()
+    public void PlayWarning(string trigger)
     {
-        anim.SetTrigger("Overheat");
-    }
-
-    private void OnBulletDestroyedEventHandler()
-    {
-        anim.SetTrigger("Ammo");
-    }
-
-    private void OnEnemyDestroyedEventHandler()
-    {
-        anim.SetTrigger("Damage");
+        anim.SetTrigger(trigger);
     }
 
     private void OnHealEventHandler()
@@ -71,11 +49,6 @@ public class PlayerMedia : MediaController<Player>
     {
         base.OnDisable();
 
-        host.OnChargeGained -= OnChargeGainedEventHandler;
-        host.OnOverheatDamage -= OnOverheatDamageEventHandler;
-        host.OnPhotonLoss -= OnPhotonLossEventHandler;
-        Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;
-        Enemy.OnEnemyDestroyed -= OnEnemyDestroyedEventHandler;
         health.OnHeal -= OnHealEventHandler;
     }
 }

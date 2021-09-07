@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Metronome : PlayerEffect
+public class Jolt : PlayerEffect
 {
     [SerializeField] private float rechargeDecreaseAmount = 0;
 
