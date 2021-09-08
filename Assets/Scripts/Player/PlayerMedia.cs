@@ -35,11 +35,6 @@ public class PlayerMedia : MediaController<Player>
         healthbar.SetTrigger("Damage");
     }
 
-    public void PlayWarning(string trigger)
-    {
-        anim.SetTrigger(trigger);
-    }
-
     private void OnHealEventHandler()
     {
         healthbar.SetTrigger("Heal");

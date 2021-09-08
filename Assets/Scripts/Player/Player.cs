@@ -1,13 +1,9 @@
 ﻿using System.Collections;
-using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static event Action OnDamageTaken;
-
     [SerializeField] private Health health = null;
-    [SerializeField] private CameraController cam = null;
     [SerializeField] private PlayerMedia media = null;
     [SerializeField] private PlayerData data = null;
     [SerializeField] private PlayerInput input = null;
@@ -34,7 +30,6 @@ public class Player : MonoBehaviour
         input.onSpecial += ActivateSpecial;
 
         health.OnDeath += OnDeathEventHandler;
-        health.OnDamageTaken += OnDamageTaken.Invoke; 
 
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyedEventHandler;
@@ -65,7 +60,7 @@ public class Player : MonoBehaviour
         if (photonsPercent <= 0)
         {
             health.TakeDamage(1);
-            media.PlayWarning("Overheat");
+            media.PlayEvent("Overheat", 2);
             photonsPercent = data.photonMax;
         }
 
@@ -122,7 +117,7 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        cam.StartKick(new Vector2(0, -1), 2, 0.75f);
+        CameraController.Instance.StartKick(new Vector2(0, -1), 2, 0.75f);
         bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
     }
 
@@ -160,7 +155,6 @@ public class Player : MonoBehaviour
         input.onSpecial -= ActivateSpecial;
 
         health.OnDeath -= OnDeathEventHandler;
-        health.OnDamageTaken -= OnDamageTaken.Invoke; 
 
         Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;
         ExtraBullet.OnExtraBulletDestroyed -= OnExtraBulletDestroyedEventHandler;

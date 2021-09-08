@@ -8,33 +8,34 @@ public class Score : MonoBehaviour
     [SerializeField] private TextMeshProUGUI newPointsText = null;
     [SerializeField] private TextMeshProUGUI comboText = null;
     [SerializeField] private Animator anim = null;
+    [SerializeField] private Health player = null;
     [SerializeField] private float comboFreezeTime = 0; // The amount of time to wait before a combo diappears
 
     private int points = 0;
-    private int comboMultipiler = 0;
+    private int comboMultiplier = 0;
 
     private void OnEnable()
     {
         Enemy.OnEnemyKilled += AddPoints;
-        Player.OnDamageTaken += OnPlayerDamageEventHandler;
+        player.OnDamageTaken += OnPlayerDamageEventHandler;
     }
 
     private void OnPlayerDamageEventHandler()
     {
-        comboMultipiler = 0;
+        comboMultiplier = 0;
         StopAllCoroutines();
         StartCoroutine(TrackCombo());
     }
 
     private void AddPoints(Enemy enemy) 
     {
-        comboMultipiler++;
-        points *= comboMultipiler;
+        comboMultiplier++;
+        points *= comboMultiplier;
         points += enemy.GetPoints(); 
 
         scoreText.text = points.ToString();
         newPointsText.text = "+" + points.ToString();
-        comboText.text = comboMultipiler.ToString();
+        comboText.text = comboMultiplier.ToString();
  
         anim.SetTrigger("Add"); // Should make combo and new score text flash
         StopAllCoroutines();
@@ -44,12 +45,12 @@ public class Score : MonoBehaviour
     private IEnumerator TrackCombo()
     {
         yield return new WaitForSeconds(comboFreezeTime);
-        comboMultipiler = 0;
+        comboMultiplier = 0;
     }
 
     private void OnDisable()
     {
         Enemy.OnEnemyKilled -= AddPoints;
-        Player.OnDamageTaken -= OnPlayerDamageEventHandler;
+        player.OnDamageTaken -= OnPlayerDamageEventHandler;
     }
 }

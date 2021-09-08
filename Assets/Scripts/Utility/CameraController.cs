@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+// Allowed as singleton since it only controls effects, rename if necessary
+public class CameraController : Singleton<CameraController>
 {
     public void StartShake(float duration, float magnitude=1)
     {
@@ -11,11 +12,12 @@ public class CameraController : MonoBehaviour
     private IEnumerator Shake(float duration, float magnitude)
     {
         Vector3 originalPos = transform.localPosition;
-        float magnitudeDelta = magnitude / duration;
+        float magnitudeDelta = magnitude / (24 * duration);
 
         for (float timer = duration; timer > 0; timer -= Time.deltaTime)
         {
             transform.localPosition = originalPos + Random.insideUnitSphere * magnitude;
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, originalPos.z);
             magnitude -= magnitudeDelta;
 
             yield return new WaitForEndOfFrame();

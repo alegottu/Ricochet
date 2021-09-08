@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb = null;
     [SerializeField] protected Health health = null;
     [SerializeField] protected EnemyData data = null;
+    [SerializeField] protected EnemyMedia media = null;
 
     private Health player = null;
 

@@ -337,6 +337,7 @@ MonoBehaviour:
   newPointsText: {fileID: 917485562}
   comboText: {fileID: 1259261059}
   anim: {fileID: 61048510}
+  player: {fileID: 599576373}
   comboFreezeTime: 3
 --- !u!1 &75407529
 GameObject:

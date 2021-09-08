@@ -2,19 +2,26 @@
 
 public class EnemyMedia : MediaController<Enemy>
 {
-    public void SetTrigger(string name)
-    {
-        anim.SetTrigger(name);
-    }
+    [SerializeField] private float explosionChance = 0;
 
     protected override void OnDeathEventHandler()
     {
-        anim.SetTrigger("Kill");
+        if (Random.Range(0f, 1f) <= explosionChance)
+        {
+            CameraController.Instance.StartShake(1);
+            PlayEvent("Explode", 2);
+        }
+        else
+        {
+            CameraController.Instance.StartShake(0.5f, 0.5f);
+            PlayEvent("Kill", 1);
+        }
     }
 
     protected override void OnDamageTakenEventHandler()
     {
-        anim.SetTrigger("Damage");
+        CameraController.Instance.StartShake(0.1f, 0.25f);
+        PlayEvent("Damage", 0);
     }
 
     // For use as an animator event

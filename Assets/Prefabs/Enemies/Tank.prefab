@@ -15,6 +15,7 @@ MonoBehaviour:
   rb: {fileID: 4461477101694702866}
   health: {fileID: 8005445550678898523}
   data: {fileID: 11400000, guid: cb4cc604711c917409576eaad2b3d99a, type: 2}
+  media: {fileID: 0}
   pathCycles: 3
 --- !u!1001 &496888773428453896
 PrefabInstance:
@@ -93,6 +94,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955340114696114522, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955340114696114522, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
