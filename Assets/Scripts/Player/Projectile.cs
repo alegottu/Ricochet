@@ -2,17 +2,21 @@
 
 public abstract class Projectile : MonoBehaviour
 {
-    [SerializeField] protected PlayerData data = null;
+    protected static readonly Vector2Int bulletAngleRange = new Vector2Int(75, 105);
+    protected const float speed = 15;
+
     [SerializeField] protected Rigidbody2D rb = null;
+    [SerializeField] protected AudioSource sfx = null;
 
     protected void SetVelocity(int angle)
     {
         transform.eulerAngles = Vector3.forward * angle;
-        rb.velocity = transform.right * data.bulletSpeed;
+        rb.velocity = transform.right * speed;
     }
 
     private void OnCollisionExit2D(Collision2D _)
     {
-        rb.velocity = rb.velocity.normalized * data.bulletSpeed; // To ensure the bullet never slows down off of odd collisions
+        rb.velocity = rb.velocity.normalized * speed; // To ensure the bullet never slows down off of odd collisions
+        sfx.PlayOneShot(sfx.clip);
     }
 }

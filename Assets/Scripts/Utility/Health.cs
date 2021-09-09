@@ -23,10 +23,12 @@ public class Health : MonoBehaviour
 
         if (_health <= 0)
         {
-            Die();
+            OnDeath?.Invoke();
         }
-
-        OnDamageTaken?.Invoke();
+        else
+        {
+            OnDamageTaken?.Invoke();
+        }
     }
 
     public void Heal(int amount)
@@ -34,10 +36,4 @@ public class Health : MonoBehaviour
         _health = Mathf.Min(_maxHealth, _health + amount);
         OnHeal?.Invoke();
     }
-
-    public void Die()
-    {
-        OnDeath?.Invoke();
-        Destroy(this);
-    } 
 }

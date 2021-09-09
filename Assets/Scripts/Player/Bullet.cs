@@ -8,7 +8,7 @@ public class Bullet : Projectile
 
     private void Awake()
     {
-        SetVelocity(UnityEngine.Random.Range(data.bulletAngleRange.x, data.bulletAngleRange.y));
+        SetVelocity(UnityEngine.Random.Range(bulletAngleRange.x, bulletAngleRange.y));
     }
 
     private void OnEnable()

@@ -29,6 +29,16 @@ PrefabInstance:
       propertyPath: host
       value: 
       objectReference: {fileID: 119129536476761990}
+    - target: {fileID: 2046812270025574525, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046812270025574525, guid: 340ab91fa06516a4dbad5b206a06fe35,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2336996828548307977, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}
       propertyPath: m_Sprite
@@ -94,16 +104,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6955340114696114522, guid: 340ab91fa06516a4dbad5b206a06fe35,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6955340114696114522, guid: 340ab91fa06516a4dbad5b206a06fe35,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7637053717831177555, guid: 340ab91fa06516a4dbad5b206a06fe35,
         type: 3}

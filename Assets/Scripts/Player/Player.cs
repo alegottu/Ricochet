@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             photonsPercent = data.photonMax;
         }
 
-        wall.StartTimer();
+        wall.StartTimer(data.maxWallLifetime);
     }
 
     // A special action where the bounds of the stage bounce the ball for a limited amount of time
@@ -83,7 +83,8 @@ public class Player : MonoBehaviour
             }
             else
             {
-                wall.Attack();
+                wall.Attack(data.wallAttackTime, data.wallAttackSpeed);
+                media.PlaySound(3);
             }
 
             media.UpdateSpecialMeter("Deplete");

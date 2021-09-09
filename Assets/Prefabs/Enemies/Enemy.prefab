@@ -218,7 +218,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8332c723b2ecb1848898bee05d15d8ab, type: 3}
   sprite: {fileID: 2336996828548307977}
   health: {fileID: 7637053717831177555}
-  explosionChance: 0.25
+  explosionChance: 0.75
 --- !u!82 &3792703376926945332
 AudioSource:
   m_ObjectHideFlags: 0

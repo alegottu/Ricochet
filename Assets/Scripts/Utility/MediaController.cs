@@ -21,6 +21,19 @@ public abstract class MediaController<T> : MonoBehaviour
         sfx.PlayOneShot(sounds[sound]);
     }
 
+    public void PlaySound(int sound)
+    {
+        sfx.PlayOneShot(sounds[sound]);
+    }
+
+    public void PlayRandomSound(int sound)
+    {
+        float originalPitch = sfx.pitch;
+        sfx.pitch = Random.Range(-3f, 3f);
+        sfx.PlayOneShot(sounds[sound]);
+        sfx.pitch = originalPitch;
+    }
+
     protected abstract void OnDeathEventHandler();
     protected abstract void OnDamageTakenEventHandler();
 

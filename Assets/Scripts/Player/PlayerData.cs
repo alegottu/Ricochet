@@ -22,12 +22,6 @@ public class PlayerData : ScriptableObject
     [SerializeField] private int _rechargeTime = 0;
     public int rechargeTime { get { return _rechargeTime; } }
 
-    [SerializeField] private float _bulletSpeed = 0;
-    public float bulletSpeed { get { return _bulletSpeed; } }
-
-    [SerializeField] private Vector2Int _bulletAngleRange = Vector2Int.zero; // x is the minimum angle and y is the maximum angle for the bullet to come out
-    public Vector2Int bulletAngleRange { get { return _bulletAngleRange; } }
-
     [SerializeField] private float _maxWallLifetime = 0;
     public float maxWallLifetime { get { return _maxWallLifetime; } }
 

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457065b9c507ae44f98917e5ef8c53e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 349f67005e82a4246a185f928eef3039, type: 2}
+  speed: 10
   rb: {fileID: 5796811833840242492}
+  sfx: {fileID: 3254510673172376634}
 --- !u!1001 &3703749636887010221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93,6 +94,12 @@ GameObject:
 --- !u!50 &5796811833840242492 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 7139389641562903697, guid: 8add2ce9f42ac8446a55e552960507e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3703749636887010221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3254510673172376634 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2183124992588904343, guid: 8add2ce9f42ac8446a55e552960507e1,
     type: 3}
   m_PrefabInstance: {fileID: 3703749636887010221}
   m_PrefabAsset: {fileID: 0}

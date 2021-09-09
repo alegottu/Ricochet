@@ -6,7 +6,6 @@ public class Wall : TemporaryObject
 {
     public static event Action<float> OnWallAttack; // float for communicating attack duration
 
-    [SerializeField] private PlayerData data = null;
     [SerializeField] private EdgeCollider2D edge = null;
     [SerializeField] private LineRenderer render = null;
 
@@ -27,30 +26,29 @@ public class Wall : TemporaryObject
         edge.points = new Vector2[2] { edge.points[0], point };
         render.SetPosition(1, point);
     }
-   
-    public void StartTimer()
+
+    public void StartTimer(float maxLifetime)
     {
-        float lifetime = data.maxWallLifetime * GetPercent();
-        StartCoroutine(Timer(lifetime));
+        StartCoroutine(Timer( maxLifetime * GetPercent() ));
     }
 
-    public void Attack()
+    public void Attack(float duration, float speed)
     {
         gameObject.layer = 0; // Changes layers so it can collide with Enemies
 
         StopAllCoroutines();
-        StartCoroutine(Cyclone());
+        StartCoroutine(Cyclone(duration, speed));
         
-        OnWallAttack?.Invoke(data.wallAttackTime);
+        OnWallAttack?.Invoke(duration);
     }
 
-    private IEnumerator Cyclone()
+    private IEnumerator Cyclone(float duration, float speed)
     {
         Vector3 midpoint = new Vector3((edge.points[0].x + edge.points[1].x) / 2, (edge.points[0].y + edge.points[1].y) / 2);
 
-        for (float time = data.wallAttackTime; time > 0; time -= Time.deltaTime)
+        for (float time = duration; time > 0; time -= Time.deltaTime)
         {
-            transform.RotateAround(midpoint, Vector3.forward, data.wallAttackSpeed * Time.deltaTime);
+            transform.RotateAround(midpoint, Vector3.forward, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
 
