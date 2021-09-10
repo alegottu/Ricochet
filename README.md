@@ -12,7 +12,7 @@ meaning drawing a new wall while one already exists replaces the existing wall.
 1. While a wall is drawn, this causes said wall to cyclone and damage enemies in its path,
 keeping the bullet in place.
 2. When no wall is available, a limited-time barrier is created to keep you from losing your bullet,
-damaging enemies on their way in.
+as well as to damage enemies on their way in.
 
 You can hold up to two charges for these abilities at one time,
 and each charge will regenerate after a certain amount of time.
@@ -21,4 +21,4 @@ and each charge will regenerate after a certain amount of time.
 ### Use these controls to ensure that enemies don't pass beyond the bottom of the screen.
 Be wary of abusing these abilities;
 Drawing walls too frequently, as well as drawing excessively large walls,
-will cost you radiation damage.
+will cause you to overheat and take damage.
