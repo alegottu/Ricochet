@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 7240042901996115047}
   lifetime: 5
+  sfx: {fileID: 2120724632349609945}
   rechargeDecreaseAmount: 1
 --- !u!1001 &8656828819019313564
 PrefabInstance:
@@ -124,6 +125,12 @@ GameObject:
 --- !u!95 &7240042901996115047 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2043217343044363771, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 8656828819019313564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2120724632349609945 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7299605061017812549, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
   m_PrefabInstance: {fileID: 8656828819019313564}
   m_PrefabAsset: {fileID: 0}

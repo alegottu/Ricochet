@@ -16,7 +16,7 @@ public class Score : MonoBehaviour
 
     private void OnEnable()
     {
-        Enemy.OnEnemyKilled += AddPoints;
+        Enemy.OnEnemyHit += AddPoints;
         player.OnDamageTaken += OnPlayerDamageEventHandler;
     }
 
@@ -27,17 +27,18 @@ public class Score : MonoBehaviour
         StartCoroutine(TrackCombo());
     }
 
-    private void AddPoints(Enemy enemy) 
+    private void AddPoints(int points) 
     {
         comboMultiplier++;
         points *= comboMultiplier;
-        points += enemy.GetPoints(); 
+
+        anim.SetTrigger("Add"); // Should make combo and new score text flash
+        comboText.gameObject.SetActive(true);
 
         scoreText.text = points.ToString();
         newPointsText.text = "+" + points.ToString();
-        comboText.text = comboMultiplier.ToString();
- 
-        anim.SetTrigger("Add"); // Should make combo and new score text flash
+        comboText.text = "x" + comboMultiplier.ToString();
+
         StopAllCoroutines();
         StartCoroutine(TrackCombo());
     }
@@ -45,12 +46,14 @@ public class Score : MonoBehaviour
     private IEnumerator TrackCombo()
     {
         yield return new WaitForSeconds(comboFreezeTime);
+
+        comboText.gameObject.SetActive(false);
         comboMultiplier = 0;
     }
 
     private void OnDisable()
     {
-        Enemy.OnEnemyKilled -= AddPoints;
+        Enemy.OnEnemyHit -= AddPoints;
         player.OnDamageTaken -= OnPlayerDamageEventHandler;
     }
 }

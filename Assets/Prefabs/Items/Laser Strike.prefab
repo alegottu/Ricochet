@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1105405712942141465}
   lifetime: 5
+  sfx: {fileID: 8521003847854132135}
   laserPrefab: {fileID: 3652338028767956374, guid: 0a1ed4a2dbe115b45949ec43e23dce69,
     type: 3}
 --- !u!1001 &1372973341187061218
@@ -72,7 +73,7 @@ PrefabInstance:
     - target: {fileID: 3227372953619644326, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
         type: 3}
       propertyPath: m_Name
-      value: Reflector
+      value: Laser Strike
       objectReference: {fileID: 0}
     - target: {fileID: 6006361061635418893, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
         type: 3}
@@ -140,6 +141,12 @@ GameObject:
 --- !u!95 &1105405712942141465 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2043217343044363771, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 1372973341187061218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8521003847854132135 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7299605061017812549, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
   m_PrefabInstance: {fileID: 1372973341187061218}
   m_PrefabAsset: {fileID: 0}

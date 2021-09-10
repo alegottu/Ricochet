@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: -6335816365442305627}
-  cam: {fileID: 0}
   media: {fileID: 599576376}
   data: {fileID: 11400000, guid: 349f67005e82a4246a185f928eef3039, type: 2}
   input: {fileID: 459991043911271107}
@@ -97,9 +96,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1c529b99298958e4b8a95f7d49becb08, type: 3}
   - {fileID: 8300000, guid: a5448ab7cc86fd9409c988da0fa0ee83, type: 3}
   - {fileID: 8300000, guid: a7862eee93cc46f4fa1fa2ceb8986886, type: 3}
-  - {fileID: 8300000, guid: e81e5bebdd9a7614fb01f5dc35774c07, type: 3}
   - {fileID: 8300000, guid: 17a855208b9139848838f90da252b7c3, type: 3}
-  - {fileID: 8300000, guid: 4643d5be9f5b78c4f8618496bc5f3c39, type: 3}
+  - {fileID: 8300000, guid: 237b344b2c9877543aa7205a1dd5870d, type: 3}
   sprite: {fileID: 0}
   health: {fileID: -6335816365442305627}
   data: {fileID: 11400000, guid: 349f67005e82a4246a185f928eef3039, type: 2}

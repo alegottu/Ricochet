@@ -84,7 +84,6 @@ public class Player : MonoBehaviour
             else
             {
                 wall.Attack(data.wallAttackTime, data.wallAttackSpeed);
-                media.PlaySound(3);
             }
 
             media.UpdateSpecialMeter("Deplete");
@@ -106,6 +105,7 @@ public class Player : MonoBehaviour
             if (chargesLeft < data.specialCharges)
             {
                 media.UpdateSpecialMeter("Fill");
+                media.PlaySound(3);
                 chargesLeft++;
             }
         }
@@ -120,11 +120,13 @@ public class Player : MonoBehaviour
     {
         CameraController.Instance.StartKick(new Vector2(0, -1), 2, 0.75f);
         bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+        media.PlayRandomSound(4, 2);
     }
 
     public void ShootExtraBullet()
     {
         Instantiate(data.extraBulletPrefab, transform.position, Quaternion.identity);
+        media.PlaySound(4);
     }
 
     private void OnBulletDestroyedEventHandler()

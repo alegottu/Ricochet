@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 187740779577291457}
   lifetime: 5
+  sfx: {fileID: 8902880096822536575}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -106,6 +107,12 @@ GameObject:
 --- !u!95 &187740779577291457 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2043217343044363771, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 2215782456707815226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8902880096822536575 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7299605061017812549, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
   m_PrefabInstance: {fileID: 2215782456707815226}
   m_PrefabAsset: {fileID: 0}

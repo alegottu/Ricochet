@@ -11,13 +11,13 @@ public class ItemSpawner : Spawner
         PlayerEffect.OnPlayerStatChange += OnPlayerStatChangeEventHandler;
     }
 
-    private void OnEnemyKilledEventHandler(Enemy enemy)
+    private void OnEnemyKilledEventHandler(Transform enemy)
     {
         GameObject item = data.itemPrefabs[GetSpawn(data.spawnChances)];
 
         if (item != null)
         {
-            Instantiate(item, enemy.transform.position, Quaternion.identity);
+            Instantiate(item, enemy.position, Quaternion.identity);
         }
     }
 

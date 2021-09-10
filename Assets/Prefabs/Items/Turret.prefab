@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 467422909027299067}
   lifetime: 5
+  sfx: {fileID: 9181434262920639813}
 --- !u!1001 &1884309981656779520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,6 +149,12 @@ GameObject:
 --- !u!95 &467422909027299067 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2043217343044363771, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 1884309981656779520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &9181434262920639813 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7299605061017812549, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
   m_PrefabInstance: {fileID: 1884309981656779520}
   m_PrefabAsset: {fileID: 0}

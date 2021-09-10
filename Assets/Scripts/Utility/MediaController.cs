@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public abstract class MediaController<T> : MonoBehaviour
 {
@@ -26,12 +27,17 @@ public abstract class MediaController<T> : MonoBehaviour
         sfx.PlayOneShot(sounds[sound]);
     }
 
-    public void PlayRandomSound(int sound)
+    public void PlayRandomSound(int sound, float minPitch=1f, float maxPitch=3f)
     {
-        float originalPitch = sfx.pitch;
-        sfx.pitch = Random.Range(-3f, 3f);
+        sfx.pitch = Random.Range(minPitch, maxPitch);
         sfx.PlayOneShot(sounds[sound]);
-        sfx.pitch = originalPitch;
+        StartCoroutine(FinishRandomSound());
+    }
+
+    private IEnumerator FinishRandomSound()
+    {
+        yield return new WaitWhile(() => sfx.isPlaying);
+        sfx.pitch = 1;
     }
 
     protected abstract void OnDeathEventHandler();

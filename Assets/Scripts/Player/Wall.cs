@@ -8,6 +8,7 @@ public class Wall : TemporaryObject
 
     [SerializeField] private EdgeCollider2D edge = null;
     [SerializeField] private LineRenderer render = null;
+    [SerializeField] private AudioSource sfx = null;
 
     // The distance of this wall turned into a percentage of the greatest possible length of a wall, found by the pythagorean theorem using the stage's scale
     public float GetPercent()
@@ -29,6 +30,7 @@ public class Wall : TemporaryObject
 
     public void StartTimer(float maxLifetime)
     {
+        sfx.Stop();
         StartCoroutine(Timer( maxLifetime * GetPercent() ));
     }
 

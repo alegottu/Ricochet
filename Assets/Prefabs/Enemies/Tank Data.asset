@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fd5994d0180d1478a7d5c16b4af573, type: 3}
   m_Name: Tank Data
   m_EditorClassIdentifier: 
+  _pointValue: 1
   _speed: 1
-  _speedFluctation: 1
+  _speedFluctuation: 1
   _direction: {x: 1, y: -1}
+  _itemChanceMultiplier: {x: 0, y: 0}

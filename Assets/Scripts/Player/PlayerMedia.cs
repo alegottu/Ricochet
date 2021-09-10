@@ -28,11 +28,15 @@ public class PlayerMedia : MediaController<Player>
     protected override void OnDeathEventHandler()
     {
         anim.SetTrigger("Kill");
+        CameraController.Instance.StartShake(1);
+        PlaySound(1);
     }
 
     protected override void OnDamageTakenEventHandler()
     {
         healthbar.SetTrigger("Damage");
+        CameraController.Instance.StartShake(0.75f, 0.25f);
+        PlaySound(0);
     }
 
     private void OnHealEventHandler()

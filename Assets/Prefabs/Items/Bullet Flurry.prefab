@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2151742665072883677}
   lifetime: 5
+  sfx: {fileID: 7262927361743989859}
   bulletPrefab: {fileID: 197862518689671108, guid: 8add2ce9f42ac8446a55e552960507e1,
     type: 3}
   bulletsAmount: 5
@@ -141,6 +142,12 @@ GameObject:
 --- !u!95 &2151742665072883677 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2043217343044363771, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 109900399295271462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7262927361743989859 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7299605061017812549, guid: 9b2ca0c456cb3b8489c5056332f5a5ee,
     type: 3}
   m_PrefabInstance: {fileID: 109900399295271462}
   m_PrefabAsset: {fileID: 0}

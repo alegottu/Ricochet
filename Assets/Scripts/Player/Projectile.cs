@@ -17,6 +17,7 @@ public abstract class Projectile : MonoBehaviour
     private void OnCollisionExit2D(Collision2D _)
     {
         rb.velocity = rb.velocity.normalized * speed; // To ensure the bullet never slows down off of odd collisions
+        sfx.pitch = Random.Range(1f, 2f);
         sfx.PlayOneShot(sfx.clip);
     }
 }
