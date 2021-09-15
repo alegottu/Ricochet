@@ -23,14 +23,13 @@ public class GameStateManager : MonoBehaviour
         GameState previousState = _currentState;
         _currentState = state;
 
-        switch (currentState)
+        if (state == GameState.PAUSED)
         {
-            case GameState.PAUSED:
-                Time.timeScale = 0;
-                break;
-            default:
-                Time.timeScale = 1;
-                break;
+            Time.timeScale = 0; // Possibly have pause happen in a separate method for efficiency
+        } 
+        else
+        {
+            Time.timeScale = 1;
         }
 
         OnGameStateChange?.Invoke(previousState, _currentState);

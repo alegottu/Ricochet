@@ -8,19 +8,19 @@ public class EnemyMedia : MediaController<Enemy>
     {
         if (Random.Range(0f, 1f) <= explosionChance)
         {
-            CameraController.Instance.StartShake(1);
+            CameraController.Instance.StartShake(1.5f);
             PlayEvent("Explode", 2);
         }
         else
         {
-            CameraController.Instance.StartShake(0.5f, 0.5f);
+            CameraController.Instance.StartShake(1);
             PlayEvent("Kill", 1);
         }
     }
 
     protected override void OnDamageTakenEventHandler()
     {
-        CameraController.Instance.StartShake(0.1f, 0.25f);
+        CameraController.Instance.StartShake(0.25f);
         PlayEvent("Damage", 0);
     }
 

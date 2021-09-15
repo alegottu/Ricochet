@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
     private void CreateBarrier()
     {
         Instantiate(data.barrierPrefab).GetComponent<Barrier>().Setup(bullet.transform);
+        CameraController.Instance.StartShake(0.25f);
     }
 
     private void ActivateSpecial()
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour
             else
             {
                 wall.Attack(data.wallAttackTime, data.wallAttackSpeed);
+                CameraController.Instance.StartShake(data.wallAttackTime);
             }
 
             media.UpdateSpecialMeter("Deplete");

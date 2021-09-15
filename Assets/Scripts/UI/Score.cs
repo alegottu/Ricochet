@@ -35,7 +35,7 @@ public class Score : MonoBehaviour
         anim.SetTrigger("Add"); // Should make combo and new score text flash
         comboText.gameObject.SetActive(true);
 
-        scoreText.text = points.ToString();
+        scoreText.text = this.points.ToString();
         newPointsText.text = "+" + points.ToString();
         comboText.text = "x" + comboMultiplier.ToString();
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,10 +6,9 @@ public class SceneController : Singleton<SceneController>
 {
     [HideInInspector] public string previousLevel = string.Empty;
     public string currentLevel = string.Empty;
-    [SerializeField] private GameStateManager gameState = null;
 
+    [SerializeField] private GameStateManager gameState = null;
     private bool transitionActive = false;
-    private List<AsyncOperation> loadOperations = new List<AsyncOperation>();
 
     private void Start()
     {
@@ -28,7 +26,6 @@ public class SceneController : Singleton<SceneController>
     private IEnumerator LevelProgress(string lvl)
     {
         AsyncOperation ao = SceneManager.LoadSceneAsync(lvl, LoadSceneMode.Additive);
-        loadOperations.Add(ao);
         ao.completed += OnLoadComplete;
 
         if (transitionActive)
@@ -45,22 +42,14 @@ public class SceneController : Singleton<SceneController>
         while (!ao.isDone)
         {
             Debug.Log("Loading in progress: " + Mathf.Clamp(ao.progress / 0.9f, 0, 1) * 100 + "%");
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
     }
 
     private void OnLoadComplete(AsyncOperation ao)
     {
-        if (loadOperations.Contains(ao))
-        {
-            loadOperations.Remove(ao);
-        }
-
-        if (loadOperations.Count < 1)
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevel));
-            gameState.UpdateState(GameStateManager.GameState.RUNNING);
-        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevel));
+        gameState.UpdateState(GameStateManager.GameState.RUNNING);
 
         Debug.Log("Load complete.");
     }
@@ -93,9 +82,9 @@ public class SceneController : Singleton<SceneController>
         UnloadLevel(previousLevel);
     }
 
-    public void UnloadObjects()
+    public void UnloadObjects(string lvl)
     {
-        foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+        foreach (GameObject obj in SceneManager.GetSceneByName(lvl).GetRootGameObjects())
         {
             Destroy(obj);
         }

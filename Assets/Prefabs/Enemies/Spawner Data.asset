@@ -20,7 +20,7 @@ MonoBehaviour:
   _spawningRange: 12
   _spawnBufferSize: 1
   _spawnRateRange: {x: 5, y: 2}
-  _spawnRateDecrease: 0.2
+  _spawnRateDecrease: 0.15
   _spawnChances: 320000000f00000023000000
-  _difficultyMultiplierIncrease: 0.1
+  _difficultyMultiplierIncrease: 0.2
   _maxDifficultyMultiplier: 5
