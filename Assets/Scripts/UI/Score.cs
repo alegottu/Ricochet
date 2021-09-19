@@ -9,7 +9,7 @@ public class Score : MonoBehaviour
     [SerializeField] private TextMeshProUGUI comboText = null;
     [SerializeField] private Animator anim = null;
     [SerializeField] private Health player = null;
-    [SerializeField] private float comboFreezeTime = 0; // The amount of time to wait before a combo diappears
+    [SerializeField] private float comboFreezeTime = 0; // The amount of time to wait before a combo disappears
 
     private int points = 0;
     private int comboMultiplier = 0;
@@ -31,6 +31,7 @@ public class Score : MonoBehaviour
     {
         comboMultiplier++;
         points *= comboMultiplier;
+        this.points += points;
 
         anim.SetTrigger("Add"); // Should make combo and new score text flash
         comboText.gameObject.SetActive(true);

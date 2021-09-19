@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_STANDALONE || UNITY_EDITOR
+
+using UnityEngine;
 using System.Collections.Generic;
 using System;
 
@@ -59,3 +61,5 @@ public class InputManager : Singleton<InputManager>
         return Input.GetAxis(axis);
     }
 }
+
+#endif

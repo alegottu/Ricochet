@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private float rechargeDecrease = 0;
     private GameObject bullet = null;
     private Wall wall = null;
+    private Coroutine drawWall = null;
 
     private void Awake()
     {
@@ -25,17 +26,13 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        input.onPenDown += CreateWall;
-        input.onPenUp += FinishWall;
-        input.onSpecial += ActivateSpecial;
-
         health.OnDeath += OnDeathEventHandler;
 
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyedEventHandler;
     }    
 
-    private void CreateWall()
+    public void CreateWall()
     {
         if (wall != null)
         {
@@ -43,18 +40,25 @@ public class Player : MonoBehaviour
         }
 
         wall = Instantiate(data.wallPrefab).GetComponent<Wall>();
-        Vector2 start = input.GetMousePos();
+        Vector2 start = input.GetCursorPosition();
         wall.SetPositions(start, start);
+        drawWall = StartCoroutine(DrawWall());
     }
 
-    private void DrawWall()
+    private IEnumerator DrawWall()
     {
-        Vector2 end = input.GetMousePos();
-        wall.SetEnd(end);
+        while (true) // Should end with FinishWall, as a result of PlayerInput's interface
+        {
+            Vector2 end = input.GetCursorPosition();
+            wall.SetEnd(end);
+            
+            yield return new WaitForEndOfFrame();
+        }
     }
 
-    private void FinishWall()
+    public void FinishWall()
     {
+        StopCoroutine(drawWall);
         photonsPercent -= wall.GetPercent();
 
         if (photonsPercent <= 0)
@@ -67,14 +71,7 @@ public class Player : MonoBehaviour
         wall.StartTimer(data.maxWallLifetime);
     }
 
-    // A special action where the bounds of the stage bounce the ball for a limited amount of time
-    private void CreateBarrier()
-    {
-        Instantiate(data.barrierPrefab).GetComponent<Barrier>().Setup(bullet.transform);
-        CameraController.Instance.StartShake(0.25f);
-    }
-
-    private void ActivateSpecial()
+    public void ActivateSpecial()
     {
         if (chargesLeft > 0)
         {
@@ -91,6 +88,13 @@ public class Player : MonoBehaviour
             media.UpdateSpecialMeter("Deplete");
             chargesLeft--;
         }
+    }
+
+    // A special action where the bounds of the stage bounce the ball for a limited amount of time
+    private void CreateBarrier()
+    {
+        Instantiate(data.barrierPrefab).GetComponent<Barrier>().Setup(bullet.transform);
+        CameraController.Instance.StartShake(0.25f);
     }
 
     public void SetRechargeDecrease(float rechargeDecrease)
@@ -144,21 +148,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (input.penDown && wall != null)
-        {
-            DrawWall();
-        }
-
         photonsPercent = Mathf.Min(data.photonMax, photonsPercent + data.photonRefill * Time.deltaTime);
         media.UpdatePhotonMeter(photonsPercent);
     }
 
     private void OnDisable()
     {
-        input.onPenDown -= CreateWall;
-        input.onPenUp -= FinishWall;
-        input.onSpecial -= ActivateSpecial;
-
         health.OnDeath -= OnDeathEventHandler;
 
         Bullet.OnBulletDestroyed -= OnBulletDestroyedEventHandler;

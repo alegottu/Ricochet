@@ -1,39 +1,67 @@
 ﻿using System;
 using UnityEngine;
 
-// if only this class uses InputManager, consider not having it be a singleton
 public class PlayerInput : MonoBehaviour
 {
-    public event Action onPenDown;
-    public event Action onPenUp;
-    public event Action onSpecial;
-
-    public bool penDown { get; private set; }
-
+    [SerializeField] private Player player = null;
     [SerializeField] private Camera mainCam = null;
 
-    public Vector2 GetMousePos()
+#if UNITY_ANDROID || UNITY_IOS
+
+    private Touch currentTouch;
+
+    public Vector2 GetCursorPosition()
+    {
+        return mainCam.ScreenToWorldPoint(currentTouch.position);
+    }
+
+    private void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            currentTouch = Input.GetTouch(0);
+            
+            if (currentTouch.phase == TouchPhase.Began)
+            {
+                if (Input.touchCount > 1)
+                {
+                    player.ActivateSpecial();
+                }
+                else
+                {
+                    player.CreateWall();
+                }
+            }
+            else if (currentTouch.phase == TouchPhase.Ended)
+            {
+                player.FinishWall();
+            }
+        }
+    } 
+
+#elif UNITY_STANDALONE || UNITY_EDITOR
+
+    public Vector2 GetCursorPosition()
     {
         return mainCam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void Update()
     {
-        penDown = InputManager.Instance.GetButton("Draw");
-
         if (InputManager.Instance.GetButtonDown("Draw"))
         {
-            onPenDown?.Invoke();
+            player.CreateWall();
         }
-
-        if (InputManager.Instance.GetButtonUp("Draw"))
+        else if (InputManager.Instance.GetButtonUp("Draw"))
         {
-            onPenUp?.Invoke();
+            player.FinishWall();
         }
 
         if (InputManager.Instance.GetButtonDown("Special"))
         {
-            onSpecial?.Invoke();
+            player.ActivateSpecial();
         }
-    }
+    }   
+
+#endif
 }
