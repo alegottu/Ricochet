@@ -49,7 +49,7 @@ public class CameraController : Singleton<CameraController>
 
         while (transform.position != originalPos)
         {
-            transform.position = Vector3.Lerp(transform.position, originalPos, velocity / 4);
+            transform.position = Vector3.Lerp(transform.position, originalPos, velocity);
 
             yield return new WaitForFixedUpdate();
         }

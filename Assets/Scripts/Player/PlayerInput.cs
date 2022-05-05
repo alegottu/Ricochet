@@ -39,7 +39,7 @@ public class PlayerInput : MonoBehaviour
         }
     } 
 
-#elif UNITY_STANDALONE || UNITY_EDITOR
+#else
 
     public Vector2 GetCursorPosition()
     {

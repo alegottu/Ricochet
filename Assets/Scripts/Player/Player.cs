@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        CameraController.Instance.StartKick(new Vector2(0, -1), 2, 0.75f);
+        // CameraController.Instance.StartKick(new Vector2(0, -1), 1.5f, 10f);
         bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
         media.PlayRandomSound(4, 2);
     }
