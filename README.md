@@ -1,4 +1,4 @@
-[Download Here](https://github.com/alegottu/Ricochet/raw/main/Build/Output/RicochetSetup.exe)
+[Download Here](https://github.com/alegottu/Ricochet/raw/main/Build/Output/RicochetSetup.exe) or [Play On Itch.io](https://alegottu.itch.io/ricochet)
 # HOW TO PLAY
 ---
 ### Hold left-click to draw walls and ricochet the bullet that spawns towards enemies.
