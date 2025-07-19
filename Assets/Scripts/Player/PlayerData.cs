@@ -36,4 +36,10 @@ public class PlayerData : ScriptableObject
 
     [SerializeField] private float _photonMax = 0; // The photon gauge's max percentage value
     public float photonMax { get { return _photonMax; } }
+    
+    [SerializeField] private Vector2[] _camShakeAmounts; // In the order that they appear in Player.cs > PlayerMedia.cs > EnemyMedia.cs
+    public Vector2[] camShakeAmounts { get { return _camShakeAmounts; } }
+
+    [SerializeField] private float _camShakeMod = 0; // Multiplies each camera shake magnitude by this amount 
+    public float camShakeMod { get { return _camShakeMod; } }
 }
