@@ -22,10 +22,17 @@ MonoBehaviour:
     type: 3}
   _specialCharges: 2
   _rechargeTime: 15
-  _bulletSpeed: 15
-  _bulletAngleRange: {x: 75, y: 105}
   _maxWallLifetime: 5
   _wallAttackTime: 1
   _wallAttackSpeed: 1080
   _photonRefill: 0.1
   _photonMax: 0.66
+  _camShakeAmounts:
+  - {x: 1, y: 1}
+  - {x: 0.25, y: 1}
+  - {x: 0.75, y: 0.25}
+  - {x: 0.75, y: 0.25}
+  - {x: 1.5, y: 1}
+  - {x: 1, y: 1}
+  - {x: 0.25, y: 1}
+  _camShakeMod: 0.5
