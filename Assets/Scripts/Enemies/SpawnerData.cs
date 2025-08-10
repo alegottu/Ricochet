@@ -9,8 +9,8 @@ public class SpawnerData : ScriptableObject
     [SerializeField] private int[] _deathThresholds = null; // The amount of enemy deaths required for the difficulty to change
     public int[] deathThresholds { get { return _deathThresholds; } }
 
-    [SerializeField] private float _spawningRange = 0; // x amount from zero that enemies can spawn within
-    public float spawningRange { get { return _spawningRange; } }
+    [SerializeField] private float _rangePadding = 0; // x percent of screen size that pads the area enemies can spawn from
+    public float rangePadding { get { return _rangePadding; } }
 
     [SerializeField] private float _spawnBufferSize = 0; // The size that indicates the area which the previous spawn took up
     public float spawnBufferSize { get { return _spawnBufferSize; } }

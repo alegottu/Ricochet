@@ -8,6 +8,7 @@ public class EnemySpawner : Spawner
     [SerializeField] private Health player = null;
     [SerializeField] private SpawnerData data = null;
 
+	private float spawningRange = 0;
     private float difficultyMultiplier = 1;
     private float spawnCooldown;
     private int deaths = 0;
@@ -15,6 +16,7 @@ public class EnemySpawner : Spawner
 
     private void Awake()
     {
+		spawningRange = Camera.main.orthographicSize / 2 - Camera.main.orthographicSize * data.rangePadding;
         spawnCooldown = data.spawnRateRange.x;
         spawnChanceTotal = 0;
         StartCoroutine(SpawnEnemies());
@@ -32,24 +34,25 @@ public class EnemySpawner : Spawner
         }
     }
 
-    private Vector3 SpawnEnemy(Vector3 previousEnemyPos)
+    private float SpawnEnemy(float previousEnemyPos)
     {
-        Vector3 position = transform.position + Vector3.right * UnityEngine.Random.Range(-data.spawningRange, data.spawningRange);
-        while (position.x >= previousEnemyPos.x - data.spawnBufferSize && position.x <= previousEnemyPos.x + data.spawnBufferSize)
+        float x = UnityEngine.Random.Range(-spawningRange, spawningRange);
+        while (x >= previousEnemyPos - data.spawnBufferSize && x <= previousEnemyPos + data.spawnBufferSize)
         {
-            position = transform.position + Vector3.right * UnityEngine.Random.Range(-data.spawningRange, data.spawningRange);
+        	x = UnityEngine.Random.Range(-spawningRange, spawningRange);
         }
 
+		Vector3 position = new Vector3(x, transform.position.y, 0);
         GameObject currentEnemy = Instantiate(data.enemyPrefabs[GetEnemy()], position, Quaternion.identity);
         currentEnemy.GetComponent<Enemy>().Setup(player, difficultyMultiplier);
         currentEnemy.GetComponent<Health>().OnDeath += OnEnemyDeathEventHandler;
         
-        return position;
+        return x;
     }
 
     private IEnumerator SpawnEnemies()
     {
-        Vector3 currentEnemyPos = Vector3.zero;
+        float currentEnemyPos = 0;
 
         while (true)
         {
