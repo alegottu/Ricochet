@@ -29,8 +29,8 @@ public abstract class Enemy : MonoBehaviour
     {
         this.player = player;
 
-        rb.velocity = data.speed * new Vector2(data.direction.x * UnityEngine.Random.Range(0f, 1f), data.direction.y);
-        rb.velocity *= UnityEngine.Random.Range(1f, data.speedFluctuation);
+        rb.linearVelocity = data.speed * new Vector2(data.direction.x * UnityEngine.Random.Range(0f, 1f), data.direction.y);
+        rb.linearVelocity *= UnityEngine.Random.Range(1f, data.speedFluctuation);
 
         if (UnityEngine.Random.Range(-1, 1) == -1)
         {
@@ -48,7 +48,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void Reflect()
     {
-        rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
+        rb.linearVelocity = new Vector2(-rb.linearVelocity.x, rb.linearVelocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

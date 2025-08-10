@@ -7,7 +7,7 @@ public class LaserStrike : Item
 
     protected override void OnTriggerEnter2D(Collider2D collider)
     {
-        direction = Vector2.Perpendicular(collider.attachedRigidbody.velocity);
+        direction = Vector2.Perpendicular(collider.attachedRigidbody.linearVelocity);
         base.OnTriggerEnter2D(collider);
     }
 

@@ -23,12 +23,12 @@ public class Bullet : Projectile
 
     private IEnumerator SlowDown(float attackTime)
     {
-        Vector2 originalSpeed = rb.velocity;
-        rb.velocity = Vector2.zero;
+        Vector2 originalSpeed = rb.linearVelocity;
+        rb.linearVelocity = Vector2.zero;
 
         yield return new WaitForSeconds(attackTime);
 
-        rb.velocity = originalSpeed;
+        rb.linearVelocity = originalSpeed;
     }
 
     protected virtual void OnDestroy()
