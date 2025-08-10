@@ -2,13 +2,15 @@
 
 public class Killbox : MonoBehaviour
 {
-	[SerializeField] private Vector2 padding;
+	[SerializeField] private Vector2 padding; // Percent amount of camera's size
 
 	private void Awake()
 	{
-		float x = Camera.main.orthographicSize;
+		float size = Camera.main.orthographicSize;
+		float x = size;
 		float aspect = Screen.height / Screen.width;
-		transform.localScale = new Vector2(x + padding.x, x * aspect + padding.y);
+		Vector2 _padding = new Vector2(size * padding.x, size * padding.y); 
+		transform.localScale = new Vector2(x + _padding.x, x * aspect + _padding.y);
 	}
 
     private void OnTriggerEnter2D(Collider2D collider)

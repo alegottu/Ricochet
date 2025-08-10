@@ -1413,11 +1413,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 965853822}
+  - component: {fileID: 965853823}
   - component: {fileID: 965853821}
   - component: {fileID: 965853826}
   - component: {fileID: 965853825}
   - component: {fileID: 965853824}
-  - component: {fileID: 965853823}
   m_Layer: 0
   m_Name: Kill Box
   m_TagString: Untagged
@@ -1498,7 +1498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cc2f88c0e9e054d8833592ab7c16d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  padding: {x: 1, y: 5}
+  padding: {x: 0.05, y: 0.25}
 --- !u!61 &965853824
 BoxCollider2D:
   m_ObjectHideFlags: 0
