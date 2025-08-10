@@ -11,6 +11,7 @@ public class Killbox : MonoBehaviour
 		float aspect = Screen.height / Screen.width;
 		Vector2 _padding = new Vector2(size * padding.x, size * padding.y); 
 		transform.localScale = new Vector2(x + _padding.x, x * aspect + _padding.y);
+		Debug.Log(x);
 	}
 
     private void OnTriggerEnter2D(Collider2D collider)

@@ -5,6 +5,8 @@ public class GameStateManager : MonoBehaviour
 {
     public static event Action<GameState, GameState> OnGameStateChange;
 
+	public static float cameraShakeDamp = 1; // TODO: better way to do this?
+
     public enum GameState
     {
         PREGAME,

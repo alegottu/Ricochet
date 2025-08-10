@@ -5,10 +5,12 @@ using UnityEngine;
 public class CameraController : Singleton<CameraController>
 {
     private static Vector3 originalPos;
+	private static float shakeDamp = 1;
 
     private void Start()
     {
         originalPos = transform.position;
+		shakeDamp = GameStateManager.cameraShakeDamp;
     }
 
     public void StartShake(float duration, float magnitude=1)
@@ -18,6 +20,7 @@ public class CameraController : Singleton<CameraController>
 
     private IEnumerator Shake(float duration, float magnitude)
     {
+		magnitude *= shakeDamp;
         float magnitudeFadeTime = magnitude / duration;
 
         for (float timer = duration; timer > 0; timer -= Time.deltaTime)

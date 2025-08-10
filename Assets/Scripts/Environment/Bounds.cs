@@ -4,6 +4,7 @@ public class Bounds : MonoBehaviour
 {
     public static Vector2 size; // Size of the entire stage's bounds
 
+	// NOTE: because of loading system, scene before main has to have the same ortho cam size
     private void Awake()
     {
 		float camSize = Camera.main.orthographicSize;
