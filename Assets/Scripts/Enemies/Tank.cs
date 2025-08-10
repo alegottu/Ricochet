@@ -22,15 +22,15 @@ public class Tank : Enemy
 
         while (true)
         {
-            rb.velocity = new Vector2(0, velocityY);
+            rb.linearVelocity = new Vector2(0, velocityY);
             yield return new WaitForSeconds(downTime);
 
             lateralDistance = Random.Range(0, previousSpeedX > 0 ? transform.position.x : Bounds.size.x - transform.position.x);
             lateralTime = lateralDistance / data.speed;
-            rb.velocity = new Vector2(-previousSpeedX, 0);
+            rb.linearVelocity = new Vector2(-previousSpeedX, 0);
             yield return new WaitForSeconds(lateralTime);
 
-            previousSpeedX = rb.velocity.x;
+            previousSpeedX = rb.linearVelocity.x;
         }
     }
 }

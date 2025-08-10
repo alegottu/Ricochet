@@ -11,12 +11,12 @@ public abstract class Projectile : MonoBehaviour
     protected void SetVelocity(int angle)
     {
         transform.eulerAngles = Vector3.forward * angle;
-        rb.velocity = transform.right * speed;
+        rb.linearVelocity = transform.right * speed;
     }
 
     private void OnCollisionExit2D(Collision2D _)
     {
-        rb.velocity = rb.velocity.normalized * speed; // To ensure the bullet never slows down off of odd collisions
+        rb.linearVelocity = rb.linearVelocity.normalized * speed; // To ensure the bullet never slows down off of odd collisions
 
         sfx.pitch = Random.Range(1f, 2f);
         sfx.PlayOneShot(sfx.clip);

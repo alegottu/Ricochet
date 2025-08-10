@@ -18,12 +18,12 @@ public class FreezeObject : MonoBehaviour
     private IEnumerator FreezeTimer()
     {
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-        Vector2 originalVelocity = rb.velocity;
-        rb.velocity = Vector2.zero;
+        Vector2 originalVelocity = rb.linearVelocity;
+        rb.linearVelocity = Vector2.zero;
 
         yield return new WaitForSeconds(freezeTime);
 
-        rb.velocity = originalVelocity;
+        rb.linearVelocity = originalVelocity;
         Destroy(this);
     }
 }
