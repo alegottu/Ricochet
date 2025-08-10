@@ -18,6 +18,7 @@ public class Score : MonoBehaviour
     {
         Enemy.OnEnemyHit += AddPoints;
         player.OnDamageTaken += OnPlayerDamageEventHandler;
+		player.OnDeath += OnPlayerDeathEventHandler;
     }
 
     private void OnPlayerDamageEventHandler()
@@ -26,6 +27,11 @@ public class Score : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(TrackCombo());
     }
+
+	private void OnPlayerDeathEventHandler()
+	{
+		Enemy.OnEnemyHit -= AddPoints;
+	}
 
     private void AddPoints(int points) 
     {
@@ -56,5 +62,6 @@ public class Score : MonoBehaviour
     {
         Enemy.OnEnemyHit -= AddPoints;
         player.OnDamageTaken -= OnPlayerDamageEventHandler;
+		player.OnDeath -= OnPlayerDeathEventHandler;
     }
 }
