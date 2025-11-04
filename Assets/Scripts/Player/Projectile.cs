@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
@@ -7,6 +8,20 @@ public abstract class Projectile : MonoBehaviour
 
     [SerializeField] protected Rigidbody2D rb = null;
     [SerializeField] protected AudioSource sfx = null;
+
+	private const float invulnTime = 0.5f;
+
+	private IEnumerator TempInvuln()
+	{
+		// NOTE: Starts out on a layer ignored by Killbox
+		yield return new WaitForSeconds(invulnTime);
+		gameObject.layer = LayerMask.NameToLayer("Bullets");
+	}
+
+    private void Start()
+    {
+        StartCoroutine(TempInvuln());
+	}
 
     protected void SetVelocity(int angle)
     {

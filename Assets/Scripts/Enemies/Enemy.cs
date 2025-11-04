@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
@@ -12,6 +13,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected EnemyData data = null;
     [SerializeField] protected EnemyMedia media = null;
 
+	private const float invulnTime = 1.0f; // Only invulnerable from killbox
+
     private Health player = null;
 
     protected virtual void OnEnable()
@@ -24,6 +27,18 @@ public abstract class Enemy : MonoBehaviour
         OnEnemyKilled?.Invoke(transform);
         Destroy(this);
     }
+
+	private IEnumerator TempInvuln()
+	{
+		// NOTE: Starts out on a layer ignored by Killbox
+		yield return new WaitForSeconds(invulnTime);
+		gameObject.layer = LayerMask.NameToLayer("Enemies");
+	}
+
+    private void Start()
+    {
+        StartCoroutine(TempInvuln());
+	}
 
     public virtual void Setup(Health player, float speedMultiplier)
     {

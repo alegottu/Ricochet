@@ -5,9 +5,9 @@ using UnityEngine;
 public class Bullet : Projectile
 {
     public static event Action OnBulletDestroyed;
-
-    private void Awake()
-    {
+	
+	private void Awake()
+	{
         SetVelocity(UnityEngine.Random.Range(bulletAngleRange.x, bulletAngleRange.y));
     }
 
