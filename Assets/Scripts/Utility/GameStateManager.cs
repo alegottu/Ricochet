@@ -20,6 +20,20 @@ public class GameStateManager : MonoBehaviour
         private set { currentState = value; }
     }
 
+	private static int score = 0;
+
+	public static int GetScore() { return score; }
+
+	public static void AddScore(int points)
+	{
+		score += points;
+	}
+
+	public static void ResetScore()
+	{
+		score = 0;
+	}
+
     public void UpdateState(GameState state)
     {
         GameState previousState = _currentState;

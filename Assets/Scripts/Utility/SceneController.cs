@@ -8,27 +8,35 @@ public class SceneController : Singleton<SceneController>
     public string currentLevel = string.Empty;
 
     [SerializeField] private GameStateManager gameState = null;
-    private bool transitionActive = false;
 
     private void Start()
     {
-        LoadLevel(currentLevel);
-        SetTransitionActive(true);
+        LoadLevel(currentLevel, false);
     }
 
-    public void LoadLevel(string lvl)
+    public void LoadLevel(string lvl, bool transition)
     {
         previousLevel = currentLevel;
         currentLevel = lvl;
-        StartCoroutine(LevelProgress(lvl));
+        StartCoroutine(LevelProgress(lvl, transition));
     }
 
-    private IEnumerator LevelProgress(string lvl)
+	public void LoadLevel(string lvl)
+	{
+		LoadLevel(lvl, true);
+	}
+
+	public void AddScene(string scene)
+	{
+		LoadLevel(scene, false);
+	}
+
+    private IEnumerator LevelProgress(string lvl, bool transition)
     {
         AsyncOperation ao = SceneManager.LoadSceneAsync(lvl, LoadSceneMode.Additive);
         ao.completed += OnLoadComplete;
 
-        if (transitionActive)
+        if (transition)
         {
             ao.completed += TransitionHandler;
         }
@@ -52,11 +60,6 @@ public class SceneController : Singleton<SceneController>
         gameState.UpdateState(GameStateManager.GameState.RUNNING);
 
         Debug.Log("Load complete.");
-    }
-
-    public void SetTransitionActive(bool enabled)
-    {
-        transitionActive = enabled;
     }
 
     private void TransitionHandler(AsyncOperation ao)

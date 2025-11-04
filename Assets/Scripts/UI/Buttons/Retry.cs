@@ -6,7 +6,6 @@ public class Retry : MonoBehaviour, IMenuButton
     {
         SceneController.Instance.UnloadObjects("Main");
         SceneController.Instance.UnloadLevel("Main");
-        SceneController.Instance.SetTransitionActive(false);
-        SceneController.Instance.LoadLevel("Main");
+		SceneController.Instance.AddScene("Main");
     }
 }

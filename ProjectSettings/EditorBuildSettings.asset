@@ -14,4 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: bf22d0dcf97cece428f6c8a312c9ef7a
+  - enabled: 1
+    path: Assets/Scenes/Leaderboard.unity
+    guid: a2a53783c841054469ac40195e4fa7e7
+  - enabled: 1
+    path: Assets/Scenes/Static Leaderboard.unity
+    guid: 347c71054d884994f8afbe74107182f3
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

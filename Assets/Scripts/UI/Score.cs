@@ -11,11 +11,12 @@ public class Score : MonoBehaviour
     [SerializeField] private Health player = null;
     [SerializeField] private float comboFreezeTime = 0; // The amount of time to wait before a combo disappears
 
-    private int points = 0;
     private int comboMultiplier = 0;
 
     private void OnEnable()
     {
+		GameStateManager.ResetScore();
+
         Enemy.OnEnemyHit += AddPoints;
         player.OnDamageTaken += OnPlayerDamageEventHandler;
 		player.OnDeath += OnPlayerDeathEventHandler;
@@ -37,12 +38,12 @@ public class Score : MonoBehaviour
     {
         comboMultiplier++;
         points *= comboMultiplier;
-        this.points += points;
+        GameStateManager.AddScore(points);
 
         anim.SetTrigger("Add"); // Should make combo and new score text flash
         comboText.gameObject.SetActive(true);
 
-        scoreText.text = this.points.ToString();
+        scoreText.text = GameStateManager.GetScore().ToString();
         newPointsText.text = "+" + points.ToString();
         comboText.text = "x" + comboMultiplier.ToString();
 
