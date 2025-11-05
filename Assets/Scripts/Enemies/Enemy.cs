@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected EnemyData data = null;
     [SerializeField] protected EnemyMedia media = null;
 
-	private const float invulnTime = 1.0f; // Only invulnerable from killbox
+	private const float invulnTime = 5.0f; // Only invulnerable from killbox
 
     private Health player = null;
 
