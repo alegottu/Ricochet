@@ -15,14 +15,11 @@ public class Player : MonoBehaviour
     private Wall wall = null;
     private Coroutine drawWall = null;
 
-    private void Awake()
-    {
-        photonsPercent = data.photonMax;
-        Shoot();
-
-        chargesLeft = data.specialCharges;
-        StartCoroutine(Recharge());
-    }
+	private void Awake()
+	{
+		Countdown.OnCountdownComplete += OnCountdownCompleteEventHandler;
+		gameObject.SetActive(false);
+	}
 
     private void OnEnable()
     {
@@ -31,6 +28,18 @@ public class Player : MonoBehaviour
         Bullet.OnBulletDestroyed += OnBulletDestroyedEventHandler;
         ExtraBullet.OnExtraBulletDestroyed += OnExtraBulletDestroyedEventHandler;
     }    
+
+	private void OnCountdownCompleteEventHandler()
+	{
+		gameObject.SetActive(true);
+		Countdown.OnCountdownComplete -= OnCountdownCompleteEventHandler;
+
+        photonsPercent = data.photonMax;
+        Shoot();
+
+        chargesLeft = data.specialCharges;
+        StartCoroutine(Recharge());
+	}
 
     public void CreateWall()
     {

@@ -19,8 +19,17 @@ public class EnemySpawner : Spawner
 		spawningRange = Camera.main.orthographicSize / 2 - Camera.main.orthographicSize * data.rangePadding;
         spawnCooldown = data.spawnRateRange.x;
         spawnChanceTotal = 0;
-        StartCoroutine(SpawnEnemies());
+
+		Countdown.OnCountdownComplete += OnCountdownCompleteEventHandler;
+		gameObject.SetActive(false);
     }
+
+	private void OnCountdownCompleteEventHandler()
+	{
+		gameObject.SetActive(true);
+		Countdown.OnCountdownComplete -= OnCountdownCompleteEventHandler;
+        StartCoroutine(SpawnEnemies());
+	}
 
     private int GetEnemy()
     {
