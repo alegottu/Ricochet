@@ -40,7 +40,7 @@ public class Score : MonoBehaviour
         points *= comboMultiplier;
         GameStateManager.AddScore(points);
 
-        anim.SetTrigger("Add"); // Should make combo and new score text flash
+        anim.SetTrigger("Add"); // Animates new points text, no need to enable it manually
         comboText.gameObject.SetActive(true);
 
         scoreText.text = GameStateManager.GetScore().ToString();
